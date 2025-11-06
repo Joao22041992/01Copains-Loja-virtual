@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dolce & Gabbana Pour Femme</title>
+
+    <!-- Google Fonts: Montserrat (Adicionado para corresponder ao estilo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <!-- CORREÇÃO: O atributo 'xintegrity' foi corrigido para 'integrity' -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Font Awesome para Ícones -->
+    <!-- CORREÇÃO: O atributo 'xintegrity' foi corrigido para 'integrity' -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      /* ------------------- */
+      /* GLOBAIS E VARIÁVEIS */
+      /* ------------------- */
+      :root {
+        --body-bg: #f8f9fa;
+        --footer-bg: #343a40;
+        --footer-text: #cccccc;
+        --footer-hover: #dc3545;
+      }
+
+      /* Estilos base para o corpo da página, com espaço para o header fixo. */
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: var(--body-bg);
+        padding-top: 100px;
+        /* Espaço para o header responsivo */
+      }
+
+      @media (min-width: 768px) {
+        body {
+          padding-top: 72px;
+          /* Espaço para o header em telas maiores */
+        }
+      }
+
+      /* ------------------- */
+      /* COMPONENTES         */
+      /* ------------------- */
+
+      /* Sombra e posicionamento fixo para o header. */
+      .header {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Sombra e bordas arredondadas para a imagem do produto. */
+      .product-image {
+        border-radius: 0.75rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      }
+
+      /* Efeito de transição para os botões de ação. */
+      .btn-add-cart,
+      .btn-buy-now {
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .btn-add-cart:hover,
+      .btn-buy-now:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Estilos para o rodapé. */
+      .footer {
+        background-color: var(--footer-bg);
+        color: var(--footer-text);
+      }
+
+      .footer-link {
+        color: var(--footer-text);
+        transition: color 0.3s ease;
+      }
+
+      .footer-link:hover {
+        color: var(--footer-hover);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ================================================================= -->
+    <!-- Cabeçalho (Header) - Estrutura padrão Bootstrap 5 para responsividade. -->
+    <!-- ================================================================= -->
+    <header class="header fixed-top">
+      <nav class="navbar navbar-expand-md bg-white">
+        <div class="container-fluid px-4">
+          <!-- Logo -->
+          <a
+            href="#"
+            class="navbar-brand h1 mb-0 fs-3 fw-bold fst-italic text-dark"
+            >Copains</a
+          >
+
+          <!-- Ícones e Botão Toggler -->
+          <div class="d-flex align-items-center">
+            <div class="d-none d-md-flex align-items-center">
+              <a href="#" class="text-dark me-3" aria-label="Pesquisar"
+                ><i class="fas fa-search"></i
+              ></a>
+              <a href="#" class="text-dark me-3" aria-label="Perfil do usuário"
+                ><i class="fas fa-user"></i
+              ></a>
+            </div>
+            <a
+              href="#"
+              class="text-dark position-relative me-3"
+              aria-label="Carrinho de compras"
+            >
+              <i class="fas fa-shopping-cart"></i>
+              <span
+                class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle"
+                style="font-size: 0.6em"
+                >0</span
+              >
+            </a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="fas fa-bars"></span>
+            </button>
+          </div>
+
+          <!-- Menu Colapsável -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link text-center text-dark" href="#">Início</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-center text-dark" href="#">Perfumes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-center text-dark" href="#">Coleções</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-center text-dark" href="#">Contato</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-center text-dark" href="#">Sair</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- Conteúdo Principal (Main) - Seção de apresentação do produto.     -->
+    <!-- ================================================================= -->
+    <main class="py-5">
+      <div class="container mt-md-5">
+        <div class="row g-5 align-items-center">
+          <!-- Lado esquerdo: Imagem do produto -->
+          <div class="col-md-6 text-center">
+            <img
+              src="Dolce & Gabbana.jpg"
+              alt="Frasco do perfume Dolce & Gabbana Pour Femme"
+              class="img-fluid product-image"
+            />
+          </div>
+
+          <!-- Lado direito: Detalhes do produto -->
+          <div class="col-md-6">
+            <h1 class="display-4 fw-bold mb-3">Dolce & Gabbana Pour Femme</h1>
+            <h2 class="text-danger mb-4">R$ 60,00</h2>
+            <p class="lead mb-4">
+              Dolce & Gabbana Pour Femme é uma fragrância floral e frutada,
+              perfeita para mulheres elegantes e sofisticadas. Sua essência de
+              baunilha e marshmallow traz um toque de doçura e sensualidade.
+              Ideal para ocasiões especiais.
+            </p>
+
+            <ul class="list-unstyled mb-4">
+              <li>
+                <i class="fas fa-check-circle text-success me-2"></i
+                ><strong>Fragrância:</strong> Floral, Frutada
+              </li>
+              <li>
+                <i class="fas fa-check-circle text-success me-2"></i
+                ><strong>Volume:</strong> 50 ml
+              </li>
+              <li>
+                <i class="fas fa-check-circle text-success me-2"></i
+                ><strong>Tipo:</strong> Eau de Parfum
+              </li>
+              <li>
+                <i class="fas fa-check-circle text-success me-2"></i
+                ><strong>Marca:</strong> Dolce & Gabbana
+              </li>
+            </ul>
+
+            <div class="d-grid gap-2 d-md-block">
+              <button class="btn btn-dark btn-lg btn-add-cart">
+                <i class="fas fa-shopping-cart me-2"></i>Adicionar ao Carrinho
+              </button>
+              <button class="btn btn-danger btn-lg btn-buy-now">
+                <i class="fas fa-bolt me-2"></i>Comprar Agora
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ================================================================= -->
+    <!-- Rodapé (Footer) - Contém links úteis e informações de copyright.  -->
+    <!-- ================================================================= -->
+    <footer class="footer py-5 mt-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-4 mb-md-0">
+            <h5 class="text-white fw-bold">Categorias</h5>
+             <ul class="list-unstyled">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="catalogo_de_produtos.html">Produtos</a></li>
+              <li><a href="carrinho.html">Carrinho</a></li>
+              <li><a href="#"></a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Links Úteis</h4>
+            <ul class="list-unstyled">
+              <li><a href="sobre_Nois.html">Sobre Nós</a></li>
+              <li><a href="FAQ.html">FAQ</a></li>
+              <li><a href="Politicas_de_privacidade.html">Política de Privacidade</a></li>
+              <li><a href="Termos_de_Uso.html">Termos de Serviço</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Fique Conectado</h4>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/Copains Pv"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/Copains.pv"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://wa.me/552198092293"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="mb-0">&copy; 2024 Copains. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer> 
+        
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle (inclui Popper.js) -->
+    <!-- CORREÇÃO: O atributo 'xintegrity' foi corrigido para 'integrity' -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

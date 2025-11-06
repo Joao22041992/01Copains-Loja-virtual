@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copains - Relógio Smart Watch 9 Plus</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              primary: "#FF6F61",
+              dark: "#111111",
+              light: "#FFFFFF",
+              text: "#333",
+              "gray-light": "#f4f4f4",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Font Awesome para Ícones -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Estilos customizados para o Modal do Carrinho -->
+    <style>
+      .cart-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+      .cart-modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .cart-modal {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        max-width: 400px;
+        height: 100%;
+        background-color: #ffffff;
+        z-index: 2000;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.15);
+        transition: right 0.4s ease-in-out;
+        display: flex;
+        flex-direction: column;
+      }
+      .cart-modal.active {
+        right: 0;
+      }
+      .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        border-bottom: 1px solid #eee;
+      }
+      .cart-close-btn {
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+      }
+      .cart-body {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 1rem;
+      }
+      .cart-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .cart-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-right: 1rem;
+      }
+      .cart-item-info {
+        flex-grow: 1;
+      }
+      .cart-item-info h4 {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+      }
+      .cart-item-info p {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+      }
+      .cart-item-actions {
+        display: flex;
+        align-items: center;
+        margin-top: 0.5rem;
+      }
+      .cart-item-actions button {
+        background: #eee;
+        border: none;
+        padding: 0.3rem 0.6rem;
+        cursor: pointer;
+      }
+      .cart-item-actions span {
+        padding: 0 1rem;
+        font-weight: 700;
+      }
+      .cart-footer {
+        padding: 1.5rem;
+        border-top: 1px solid #eee;
+      }
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+      .checkout-btn {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 font-sans text-text pt-20">
+    <!-- ======================= -->
+    <!-- CABEÇALHO (HEADER)      -->
+    <!-- ======================= -->
+    <header
+      class="fixed top-0 left-0 w-full bg-light shadow-md z-50 flex justify-between items-center py-4 px-6 md:px-12 h-20"
+    >
+      <a
+        href="pagina inicial.html"
+        class="font-bold text-2xl md:text-3xl italic text-dark"
+        >Copains</a
+      >
+      <nav>
+        <!-- Menu Desktop -->
+        <ul id="nav-links" class="hidden md:flex gap-6 lg:gap-10">
+          <li>
+            <a
+              href="pagina inicial.html"
+              class="font-semibold transition duration-300 hover:text-primary"
+              >Início</a
+            >
+          </li>
+          <li>
+            <a
+              href="catalogo de produtos.html"
+              class="font-semibold transition duration-300 hover:text-primary"
+              >Produtos</a
+            >
+          </li>
+          <li>
+            <a
+              href="favoritos.html"
+              class="font-semibold transition duration-300 hover:text-primary"
+              >Favoritos</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="font-semibold transition duration-300 hover:text-primary"
+              >Sair</a
+            >
+          </li>
+        </ul>
+      </nav>
+      <div class="flex items-center gap-6">
+        <!-- Ícones Desktop -->
+        <div class="hidden md:flex items-center gap-6">
+          <a href="#" class="text-xl transition duration-300 hover:text-primary"
+            ><i class="fas fa-search"></i
+          ></a>
+          <a href="#" class="text-xl transition duration-300 hover:text-primary"
+            ><i class="fas fa-user"></i
+          ></a>
+        </div>
+        <!-- Ícone do Carrinho (visível em todas as telas) -->
+        <div id="cart-icon" class="relative cursor-pointer">
+          <i
+            class="fas fa-shopping-cart text-xl transition duration-300 hover:text-primary"
+          ></i>
+          <span
+            id="cart-item-count"
+            class="absolute top-[-8px] right-[-10px] bg-primary text-light rounded-full px-1.5 py-0.5 text-xs font-bold hidden"
+            >0</span
+          >
+        </div>
+        <!-- Botão Hambúrguer (apenas mobile) -->
+        <button class="md:hidden text-2xl cursor-pointer" id="hamburger-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- ======================= -->
+    <!-- CONTEÚDO PRINCIPAL      -->
+    <!-- ======================= -->
+    <main>
+      <!-- Seção de Apresentação do Produto -->
+      <section class="container mx-auto px-4 md:px-6 py-16 md:py-24">
+        <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+          <!-- Lado esquerdo: Imagem do produto -->
+          <div class="w-full lg:w-1/2 text-center">
+            <img
+              src="1000015855.jpg"
+              onerror="this.src='https://placehold.co/600x600/f4f4f4/333333?text=Imagem+do+Relógio';"
+              alt="Relógio Smart Watch 9 Plus"
+              class="w-full max-w-lg mx-auto h-auto rounded-xl shadow-lg"
+            />
+          </div>
+
+          <!-- Lado direito: Detalhes do produto -->
+          <!-- Os atributos data-* são essenciais para o JavaScript do carrinho coletar as informações do produto -->
+          <div
+            class="w-full lg:w-1/2 p-4"
+            data-id="prod-sw9-plus"
+            data-name="Relógio Smart Watch 9 Plus"
+            data-price="170.00"
+            data-image="1000015855.jpg"
+          >
+            <h1 class="text-3xl md:text-5xl font-bold mb-4 text-dark">
+              Relógio Smart Watch 9 Plus
+            </h1>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-primary">
+              R$ 170,00
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed mb-6">
+              O Smart Watch 9 Plus é o parceiro ideal para seu dia a dia. Com um
+              design elegante e moderno, ele une funcionalidade e estilo para
+              você monitorar suas atividades, receber notificações e gerenciar
+              seu tempo de forma inteligente. Ideal para quem busca tecnologia e
+              praticidade no pulso.
+            </p>
+            <ul class="list-none mb-6">
+              <li class="flex items-center gap-2 mb-2 text-base md:text-lg">
+                <i class="fas fa-check-circle text-primary"></i> Tela: Display
+                Full HD de 1.96 polegadas
+              </li>
+              <li class="flex items-center gap-2 mb-2 text-base md:text-lg">
+                <i class="fas fa-check-circle text-primary"></i> Conectividade:
+                Bluetooth 5.0
+              </li>
+              <li class="flex items-center gap-2 mb-2 text-base md:text-lg">
+                <i class="fas fa-check-circle text-primary"></i> Bateria: Longa
+                duração (até 7 dias em uso moderado)
+              </li>
+              <li class="flex items-center gap-2 mb-2 text-base md:text-lg">
+                <i class="fas fa-check-circle text-primary"></i> Funções:
+                Monitor de saúde, notificações e muito mais.
+              </li>
+            </ul>
+
+            <!-- Seletor de Cores/Variantes -->
+            <div id="color-options" class="mb-6">
+              <label class="block font-bold mb-2 text-base md:text-lg"
+                >Selecione a Cor da Pulseira:</label
+              >
+              <div class="flex flex-wrap gap-2">
+                <button
+                  class="color-option bg-gray-200 border border-gray-300 rounded-md px-4 py-2 cursor-pointer transition duration-200 hover:bg-dark hover:text-light"
+                  data-color="Laranja"
+                >
+                  Laranja
+                </button>
+                <button
+                  class="color-option bg-gray-200 border border-gray-300 rounded-md px-4 py-2 cursor-pointer transition duration-200 hover:bg-dark hover:text-light"
+                  data-color="Preto"
+                >
+                  Preto
+                </button>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+              <button
+                class="add-to-cart-btn w-full sm:w-auto px-8 py-3 rounded-lg font-bold text-light bg-dark transition duration-200 hover:bg-gray-800 hover:scale-105"
+              >
+                <i class="fas fa-shopping-cart mr-2"></i> Adicionar ao Carrinho
+              </button>
+              <button
+                class="buy-now-btn w-full sm:w-auto px-8 py-3 rounded-lg font-bold text-light bg-primary transition duration-200 hover:bg-red-500 hover:scale-105"
+              >
+                <i class="fas fa-bolt mr-2"></i> Comprar Agora
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ======================= -->
+    <!-- RODAPÉ (FOOTER)         -->
+    <!-- ======================= -->
+    <footer class="bg-dark text-gray-200 py-16 mt-16">
+      <div class="container mx-auto px-4">
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 border-b border-gray-700"
+        >
+          <div class="space-y-4">
+            <h4 class="text-light text-xl font-bold">Categorias</h4>
+            <ul>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Novidades</a
+                >
+              </li>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Promoções</a
+                >
+              </li>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Calças</a
+                >
+              </li>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Casacos</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="space-y-4">
+            <h4 class="text-light text-xl font-bold">Links Úteis</h4>
+            <ul>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Sobre Nós</a
+                >
+              </li>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary">FAQ</a>
+              </li>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Política de Privacidade</a
+                >
+              </li>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Termos de Serviço</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="space-y-4">
+            <h4 class="text-light text-xl font-bold">Fique Conectado</h4>
+            <div class="flex gap-4">
+              <a href="#" class="text-2xl transition-colors hover:text-primary"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" class="text-2xl transition-colors hover:text-primary"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" class="text-2xl transition-colors hover:text-primary"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="text-center pt-8 text-gray-400 text-sm">
+          <p>&copy; 2024 Copains. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ======================= -->
+    <!-- MODAL DO CARRINHO       -->
+    <!-- ======================= -->
+    <div class="cart-modal-overlay" id="cart-modal-overlay">
+      <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+          <h3>Meu Carrinho</h3>
+          <button class="cart-close-btn" id="cart-close-btn">&times;</button>
+        </div>
+        <div class="cart-body" id="cart-body">
+          <!-- Itens do carrinho serão inseridos aqui via JS -->
+        </div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>Total:</span>
+            <span id="cart-total">R$ 0,00</span>
+          </div>
+          <button
+            class="checkout-btn bg-primary text-light font-bold py-2 px-4 rounded"
+          >
+            Finalizar Compra
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script Principal Centralizado. O 'defer' otimiza o carregamento da página. -->
+    <script src="main.js" defer></script>
+  </body>
+</html>

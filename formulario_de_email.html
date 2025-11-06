@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulário de Contato</title>
+    <!-- Link para o Tailwind CSS para estilização rápida -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+    />
+    <style>
+      body {
+        background-color: #f3f4f6;
+      }
+    </style>
+  </head>
+  <body class="flex items-center justify-center min-h-screen">
+    <!-- Container principal do formulário, com estilo e sombra -->
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+      <h2 class="text-2xl font-bold mb-6 text-center">Formulário de Contato</h2>
+      <!-- O atributo 'action' aponta para o script PHP que processará o formulário -->
+      <!-- CORREÇÃO: O nome do arquivo foi ajustado para corresponder ao seu script PHP -->
+      <form action="desparo de e-mail.php" method="POST">
+        <!-- Campo para o nome do cliente -->
+        <div class="mb-4">
+          <label for="nome" class="block text-gray-700 font-bold mb-2"
+            >Nome:</label
+          >
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            required
+            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <!-- Campo para o e-mail -->
+        <div class="mb-4">
+          <label for="email" class="block text-gray-700 font-bold mb-2"
+            >E-mail:</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <!-- Campo para o telefone -->
+        <div class="mb-4">
+          <label for="telefone" class="block text-gray-700 font-bold mb-2"
+            >Telefone:</label
+          >
+          <input
+            type="tel"
+            id="telefone"
+            name="telefone"
+            required
+            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <!-- Campo para o CPF -->
+        <div class="mb-4">
+          <label for="cpf" class="block text-gray-700 font-bold mb-2"
+            >CPF:</label
+          >
+          <input
+            type="text"
+            id="cpf"
+            name="cpf"
+            required
+            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="000.000.000-00"
+            maxlength="14"
+          />
+        </div>
+        <!-- Campo para o endereço -->
+        <div class="mb-4">
+          <label for="endereco" class="block text-gray-700 font-bold mb-2"
+            >Endereço:</label
+          >
+          <input
+            type="text"
+            id="endereco"
+            name="endereco"
+            required
+            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <!-- Campo para o número da residência -->
+        <div class="mb-4">
+          <label
+            for="numero_residencia"
+            class="block text-gray-700 font-bold mb-2"
+            >Número da Residência:</label
+          >
+          <input
+            type="text"
+            id="numero_residencia"
+            name="numero_residencia"
+            required
+            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <!-- Campo para o Bairro -->
+        <div class="mb-4">
+          <label for="bairro" class="block text-gray-700 font-bold mb-2"
+            >Bairro:</label
+          >
+          <input
+            type="text"
+            id="bairro"
+            name="bairro"
+            required
+            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <!-- Campo para o País -->
+        <div class="mb-4">
+          <label for="pais" class="block text-gray-700 font-bold mb-2"
+            >País:</label
+          >
+          <input
+            type="text"
+            id="pais"
+            name="pais"
+            required
+            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <!-- Campo para o Estado -->
+        <div class="mb-4">
+          <label for="estado" class="block text-gray-700 font-bold mb-2"
+            >Estado:</label
+          >
+          <input
+            type="text"
+            id="estado"
+            name="estado"
+            required
+            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <!-- Campo para o Município -->
+        <div class="mb-4">
+          <label for="municipio" class="block text-gray-700 font-bold mb-2"
+            >Município:</label
+          >
+          <input
+            type="text"
+            id="municipio"
+            name="municipio"
+            required
+            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <!-- Botão de envio do formulário -->
+        <div class="text-center">
+          <button
+            type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline w-full sm:w-auto"
+          >
+            Enviar
+          </button>
+        </div>
+      </form>
+      <!-- Elemento para exibir mensagens de status ao usuário (sucesso/erro) -->
+      <p
+        id="mensagem-status"
+        class="mt-4 text-center"
+        style="display: none"
+      ></p>
+    </div>
+
+    <!-- Script JavaScript para processar o formulário sem recarregar a página -->
+    <script>
+      // Adiciona um 'ouvinte' para o evento de envio do formulário
+      document
+        .querySelector("form")
+        .addEventListener("submit", async function (event) {
+          // Impede o envio padrão do formulário (que recarrega a página)
+          event.preventDefault();
+
+          const form = event.target;
+          const formData = new FormData(form);
+          const statusElement = document.getElementById("mensagem-status");
+          const submitButton = form.querySelector('button[type="submit"]');
+
+          // MELHORIA: Desabilita o botão e altera o texto para feedback visual
+          submitButton.disabled = true;
+          submitButton.textContent = "Enviando...";
+          statusElement.style.display = "none"; // Esconde a mensagem anterior
+
+          try {
+            // Envia os dados do formulário para o arquivo PHP
+            const response = await fetch(form.action, {
+              method: form.method,
+              body: formData,
+            });
+
+            // Converte a resposta do servidor para JSON
+            const result = await response.json();
+
+            // Exibe a mensagem de sucesso ou erro do servidor
+            statusElement.textContent = result.message;
+            // Altera a cor do texto com base no sucesso ou erro
+            statusElement.className = result.success
+              ? "mt-4 text-center text-green-500"
+              : "mt-4 text-center text-red-500";
+            // Torna o elemento visível
+            statusElement.style.display = "block";
+
+            // Se o envio foi um sucesso, limpa os campos do formulário
+            if (result.success) {
+              form.reset();
+            }
+          } catch (error) {
+            // Lida com erros de conexão ou outros problemas
+            statusElement.textContent =
+              "Ocorreu um erro de conexão. Tente novamente.";
+            statusElement.className = "mt-4 text-center text-red-500";
+            statusElement.style.display = "block";
+          } finally {
+            // MELHORIA: Reabilita o botão e restaura o texto original, ocorrendo sucesso ou falha
+            submitButton.disabled = false;
+            submitButton.textContent = "Enviar";
+          }
+        });
+
+      // Adiciona uma máscara para o campo de CPF enquanto o usuário digita
+      document.getElementById("cpf").addEventListener("input", function (e) {
+        let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não é dígito
+        value = value.replace(/(\d{3})(\d)/, "$1.$2"); // Adiciona ponto após os 3 primeiros dígitos
+        value = value.replace(/(\d{3})(\d)/, "$1.$2"); // Adiciona ponto após os 3 próximos dígitos
+        value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2"); // Adiciona traço antes dos 2 últimos dígitos
+        e.target.value = value;
+      });
+    </script>
+  </body>
+</html>

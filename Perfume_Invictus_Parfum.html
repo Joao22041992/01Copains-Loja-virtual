@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copains - Hidratante 212 VIP Rosé</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome para Ícones -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      :root {
+        --primary-color: #ff6f61;
+        --dark-color: #111111;
+        --light-color: #ffffff;
+        --text-color: #333;
+        --gray-light: #f4f4f4;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        color: var(--text-color);
+        background-color: var(--light-color);
+        padding-top: 80px;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      /* ------------------- */
+      /* HEADER / NAVEGAÇÃO */
+      /* ------------------- */
+      .header {
+        height: 80px;
+      }
+
+      .header .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        font-style: italic;
+        color: var(--dark-color);
+      }
+
+      .header .nav-link:hover,
+      .header .nav-icons a:hover {
+        color: var(--primary-color) !important;
+      }
+
+      .header .cart-item-count {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background-color: var(--primary-color);
+        color: var(--light-color);
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: none;
+      }
+
+      /* ------------------- */
+      /* SEÇÃO DO PRODUTO */
+      /* ------------------- */
+      .product-section {
+        padding: 4rem 0;
+      }
+
+      .product-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-details h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--dark-color);
+      }
+
+      .product-details h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+      }
+
+      .product-details p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+      }
+
+      .size-selector label {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .size-option {
+        background-color: var(--gray-light);
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+      }
+
+      .size-option.selected,
+      .size-option:hover {
+        background-color: var(--dark-color);
+        color: var(--light-color);
+        border-color: var(--dark-color);
+      }
+
+      .product-buttons .add-to-cart-btn,
+      .product-buttons .buy-now-btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .add-to-cart-btn {
+        background-color: var(--dark-color);
+        color: var(--light-color);
+      }
+
+      .buy-now-btn {
+        background-color: var(--primary-color);
+        color: var(--light-color);
+      }
+
+      .add-to-cart-btn:hover {
+        background-color: #333;
+        transform: translateY(-2px);
+      }
+
+      .buy-now-btn:hover {
+        background-color: #e65a50;
+        transform: translateY(-2px);
+      }
+
+      .specs-list li {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      /* ------------------- */
+      /* RODAPÉ */
+      /* ------------------- */
+      .footer {
+        background-color: var(--dark-color);
+        color: var(--gray-light);
+        padding: 4rem 0 2rem;
+        margin-top: 4rem;
+      }
+
+      .footer a {
+        color: #ccc;
+        transition: color 0.3s ease;
+      }
+
+      .footer a:hover {
+        color: var(--primary-color);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid #444;
+        color: #aaa;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Cabeçalho (Header) -->
+    <header
+      class="header navbar navbar-expand-md navbar-light bg-light fixed-top shadow-sm"
+    >
+      <div class="container">
+        <a class="navbar-brand logo" href="pagina inicial.html">Copains</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Início</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="catalogo_de_produtos.html">Produtos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="favoritos.html">Favoritos</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="carrinho.html">Carrinh</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sair</a>
+            </li>
+          </ul>
+         
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+      <!-- Seção de Apresentação do Produto -->
+      <section class="product-section container">
+        <div class="row gy-4 gx-md-5 align-items-center">
+          <!-- Lado esquerdo: Imagem do produto -->
+          <div class="col-12 col-md-6 text-center">
+            <img
+              src="Perfume invictus parfum.jpg"
+              alt="Hidratante 212 VIP Rosé"
+              class="product-image"
+            />
+          </div>
+
+          <!-- Lado direito: Detalhes do produto -->
+          <div class="col-12 col-md-6">
+            <div class="product-details">
+              <h1>Perfume For Men Blue Seduction Contra Tipo</h1>
+              <h2>R$ 60,00</h2>
+              <p>
+                Perfume contratipo masculino, com 50ml, perfeito para o homem
+                moderno e sofisticado.
+              </p>
+
+              <ul class="specs-list list-unstyled">
+                <li>
+                  <i class="fas fa-check-circle text-success me-2"></i>
+                  Fragrância: For Men Blue Seduction
+                </li>
+                <li>
+                  <i class="fas fa-check-circle text-success me-2"></i> Volume:
+                  50ml
+                </li>
+                <li>
+                  <i class="fas fa-check-circle text-success me-2"></i> Linha:
+                  Seduction
+                </li>
+              </ul>
+
+              <!-- Seletor de Tamanho (Não aplicável para hidratante, mas mantido para a estrutura) -->
+              <div class="size-selector mb-4 d-none">
+                <label for="size-select">Selecione o Tamanho:</label>
+                <div
+                  class="size-options d-flex flex-wrap gap-2"
+                  id="size-options"
+                >
+                  <div class="size-option" data-size="único">Tamanho Único</div>
+                </div>
+              </div>
+
+              <div class="product-buttons d-flex gap-3">
+                <button class="add-to-cart-btn flex-grow-1">
+                  <i class="fas fa-shopping-cart me-2"></i> Adicionar ao
+                  Carrinho
+                </button>
+                <button class="buy-now-btn flex-grow-1">
+                  <i class="fas fa-bolt me-2"></i> Comprar Agora
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Rodapé (Footer) -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row py-5">
+          <div class="col-12 col-md-4 mb-4 mb-md-0">
+            <h4 class="text-white mb-3">Categorias</h4>
+             <ul class="list-unstyled">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="catalogo_de_produtos.html">Produtos</a></li>
+              <li><a href="carrinho.html">Carrinho</a></li>
+              <li><a href="#"></a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Links Úteis</h4>
+            <ul class="list-unstyled">
+              <li><a href="sobre_Nois.html">Sobre Nós</a></li>
+              <li><a href="FAQ.html">FAQ</a></li>
+              <li><a href="Politicas_de_privacidade.html">Política de Privacidade</a></li>
+              <li><a href="Termos_de_Uso.html">Termos de Serviço</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Fique Conectado</h4>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/Copains Pv"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/Copains.pv"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://wa.me/552198092293"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="mb-0">&copy; 2024 Copains. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer> 
+        
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- O script customizado para o menu mobile foi removido pois a funcionalidade agora é tratada pelo Bootstrap Navbar. -->
+  </body>
+</html>

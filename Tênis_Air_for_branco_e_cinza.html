@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tênis Air Force Branco e Cinza - Copains</title>
+
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Font Awesome para Ícones -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      /* ------------------- */
+      /* RESET E GLOBAIS     */
+      /* ------------------- */
+      :root {
+        --primary-color: #ff6f61;
+        --dark-color: #111111;
+        --light-color: #ffffff;
+        --text-color: #333;
+        --gray-light: #f4f4f4;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        color: var(--text-color);
+        background-color: var(--light-color);
+        padding-top: 80px;
+        /* Espaçamento para o cabeçalho fixo */
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* ------------------- */
+      /* HEADER / NAVEGAÇÃO  */
+      /* ------------------- */
+      .navbar {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        height: 80px;
+      }
+
+      .navbar-brand {
+        font-size: 1.8rem;
+        font-weight: 700;
+        font-style: italic;
+        color: var(--dark-color) !important;
+      }
+
+      .nav-link {
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link:hover {
+        color: var(--primary-color) !important;
+      }
+
+      .nav-icons .nav-link {
+        font-size: 1.2rem;
+      }
+
+      .cart-icon-wrapper {
+        position: relative;
+      }
+
+      .cart-item-count {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background-color: var(--primary-color);
+        color: var(--light-color);
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: none;
+      }
+
+      /* ------------------- */
+      /* SEÇÃO DO PRODUTO    */
+      /* ------------------- */
+      .product-section {
+        padding: 4rem 0;
+      }
+
+      .product-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-details h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--dark-color);
+      }
+
+      .product-details h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+      }
+
+      .product-details p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+      }
+
+      .specs-list {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 1.5rem;
+      }
+
+      .specs-list li {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      /* ------------------- */
+      /* SELEÇÃO DE TAMANHO  */
+      /* ------------------- */
+      .size-selector label {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .size-option {
+        background-color: var(--gray-light);
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+      }
+
+      .size-option.selected,
+      .size-option:hover {
+        background-color: var(--dark-color);
+        color: var(--light-color);
+        border-color: var(--dark-color);
+      }
+
+      .add-to-cart-btn,
+      .buy-now-btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .add-to-cart-btn {
+        background-color: var(--dark-color);
+        color: var(--light-color);
+      }
+
+      .add-to-cart-btn:hover {
+        background-color: #333;
+        transform: translateY(-2px);
+      }
+
+      .buy-now-btn {
+        background-color: var(--primary-color);
+        color: var(--light-color);
+      }
+
+      .buy-now-btn:hover {
+        background-color: #e65a50;
+        transform: translateY(-2px);
+      }
+
+      /* ------------------- */
+      /* RODAPÉ              */
+      /* ------------------- */
+      .footer {
+        background-color: var(--dark-color);
+        color: var(--gray-light);
+        padding: 4rem 0 2rem;
+        margin-top: 4rem;
+      }
+
+      .footer h4 {
+        color: var(--light-color);
+      }
+
+      .footer a {
+        color: #ccc;
+        transition: color 0.3s ease;
+      }
+
+      .footer a:hover {
+        color: var(--primary-color);
+      }
+
+      .social-icons a {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+      }
+
+      .footer-bottom {
+        border-top: 1px solid #444;
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+
+      /* Estilos do Modal do Carrinho */
+      .cart-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .cart-modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .cart-modal {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        max-width: 400px;
+        height: 100%;
+        background-color: #ffffff;
+        z-index: 2000;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.15);
+        transition: right 0.4s ease-in-out;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .cart-modal.active {
+        right: 0;
+      }
+
+      .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        border-bottom: 1px solid #eee;
+      }
+
+      .cart-close-btn {
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+      }
+
+      .cart-body {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 1rem;
+      }
+      .cart-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .cart-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-right: 1rem;
+      }
+      .cart-item-info {
+        flex-grow: 1;
+      }
+      .cart-item-info h4 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .cart-item-info p {
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .cart-item-actions {
+        display: flex;
+        align-items: center;
+        margin-top: 0.5rem;
+      }
+      .cart-item-actions button {
+        background: #eee;
+        border: none;
+        padding: 0.3rem 0.6rem;
+        cursor: pointer;
+      }
+      .cart-item-actions span {
+        padding: 0 1rem;
+        font-weight: 700;
+      }
+      .cart-footer {
+        padding: 1.5rem;
+        border-top: 1px solid #eee;
+      }
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+      .checkout-btn {
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Cabeçalho (Header) -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="pagina inicial.html">Copains</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Início</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="catalogo_de_produtos.html">Produtos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="favoritos.html">Favoritos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sair</a>
+            </li>
+          </ul>
+          <div class="nav-icons d-flex align-items-center">
+            <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+            <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
+            <div
+              class="cart-icon-wrapper"
+              id="cart-icon"
+              style="cursor: pointer"
+            >
+              <i class="fas fa-shopping-cart nav-link"></i>
+              <span class="cart-item-count" id="cart-item-count">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main>
+      <!-- Seção de Apresentação do Produto -->
+      <section class="product-section container">
+        <div class="row g-5">
+          <!-- Lado esquerdo: Imagem do produto -->
+          <div
+            class="col-12 col-lg-6 d-flex justify-content-center align-items-center"
+          >
+            <img
+              src="https://placehold.co/600x600/f4f4f4/333?text=Air+Force+Branco+e+Cinza"
+              alt="Tênis Air Force Branco e Cinza"
+              class="product-image"
+            />
+          </div>
+
+          <!-- Lado direito: Detalhes do produto -->
+          <div class="col-12 col-lg-6">
+            <div
+              class="product-details"
+              data-id="prod-af-cinza"
+              data-name="Tênis Air Force Branco e Cinza Premium"
+              data-price="150.00"
+              data-image="https://placehold.co/600x600/f4f4f4/333?text=Air+Force+Branco+e+Cinza"
+            >
+              <h1>Tênis Air Force Branco e Cinza Premium</h1>
+              <h2>R$ 150,00</h2>
+              <p>
+                Este tênis clássico combina o design icônico do Air Force com
+                uma paleta de cores neutra e sofisticada. O branco e o cinza se
+                complementam perfeitamente, garantindo um visual elegante e
+                versátil para o seu dia a dia.
+              </p>
+              <ul class="specs-list list-unstyled">
+                <li>
+                  <i class="fas fa-check-circle text-success"></i> Material:
+                  Couro de alta qualidade
+                </li>
+                <li>
+                  <i class="fas fa-check-circle text-success"></i> Sola:
+                  Borracha resistente
+                </li>
+                <li>
+                  <i class="fas fa-check-circle text-success"></i> Cor: Branco e
+                  Cinza
+                </li>
+              </ul>
+
+              <!-- Seletor de Tamanho -->
+              <div class="size-selector my-4">
+                <label for="size-select" class="fw-bold mb-2"
+                  >Selecione o Tamanho:</label
+                >
+                <div class="d-flex flex-wrap gap-2" id="size-options">
+                  <div class="size-option" data-size="35">35</div>
+                  <div class="size-option" data-size="36">36</div>
+                  <div class="size-option" data-size="37">37</div>
+                  <div class="size-option" data-size="38">38</div>
+                  <div class="size-option" data-size="39">39</div>
+                  <div class="size-option" data-size="40">40</div>
+                  <div class="size-option" data-size="41">41</div>
+                  <div class="size-option" data-size="42">42</div>
+                </div>
+              </div>
+
+              <div class="product-buttons d-flex gap-3 mt-4">
+                <button class="add-to-cart-btn flex-fill">
+                  <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
+                </button>
+                <button class="buy-now-btn flex-fill">
+                  <i class="fas fa-bolt"></i> Comprar Agora
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Rodapé (Footer) -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row g-4 mb-5">
+          <div class="col-12 col-md-4">
+            <h4 class="mb-3">Categorias</h4>
+            <ul class="list-unstyled">
+              <li><a href="#">Novidades</a></li>
+              <li><a href="#">Promoções</a></li>
+              <li><a href="#">Calças</a></li>
+              <li><a href="#">Casacos</a></li>
+            </ul>
+          </div>
+          <div class="col-12 col-md-4">
+            <h4 class="mb-3">Links Úteis</h4>
+            <ul class="list-unstyled">
+              <li><a href="#">Sobre Nós</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Política de Privacidade</a></li>
+              <li><a href="#">Termos de Serviço</a></li>
+            </ul>
+          </div>
+          <div class="col-12 col-md-4">
+            <h4 class="mb-3">Fique Conectado</h4>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom text-center pt-4">
+          <p>&copy; 2024 Copains. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ======================= -->
+    <!-- MODAL DO CARRINHO       -->
+    <!-- ======================= -->
+    <div class="cart-modal-overlay" id="cart-modal-overlay">
+      <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+          <h3>Meu Carrinho</h3>
+          <button class="cart-close-btn" id="cart-close-btn">&times;</button>
+        </div>
+        <div class="cart-body" id="cart-body">
+          <!-- Itens do carrinho serão inseridos aqui via JS -->
+        </div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>Total:</span>
+            <span id="cart-total">R$ 0,00</span>
+          </div>
+          <button class="btn btn-primary w-100 checkout-btn">
+            Finalizar Compra
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Script Principal Centralizado. O 'defer' otimiza o carregamento da página. -->
+    <script src="main.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copains - Perfume Bad Boy</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Font Awesome para Ícones -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      /* ======================= */
+      /* RESET E GLOBAIS         */
+      /* ======================= */
+      :root {
+        --primary-color: #ff6f61;
+        --dark-color: #111111;
+        --light-color: #ffffff;
+        --text-color: #333;
+        --gray-light: #f4f4f4;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--text-color);
+        background-color: var(--light-color);
+        padding-top: 80px;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      /* ======================= */
+      /* HEADER / NAVEGAÇÃO      */
+      /* ======================= */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--light-color);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        height: 80px;
+      }
+
+      .header .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        font-style: italic;
+        color: var(--dark-color);
+      }
+
+      .header .nav-links {
+        display: flex;
+        gap: 2.5rem;
+      }
+
+      .header .nav-links a {
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .header .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      .header .nav-icons {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .header .nav-icons .cart-item-count {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background-color: var(--primary-color);
+        color: var(--light-color);
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: none;
+      }
+
+      .header .nav-icons a {
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+      }
+
+      .header .nav-icons a:hover {
+        color: var(--primary-color);
+      }
+
+      .hamburger {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+
+      /* ======================= */
+      /* SEÇÃO DO PRODUTO        */
+      /* ======================= */
+      .product-section {
+        padding: 4rem 0;
+      }
+
+      .product-content {
+        display: flex;
+        gap: 4rem;
+        align-items: center;
+        flex-direction: column;
+        /* Padrão mobile */
+      }
+
+      .product-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-details h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--dark-color);
+      }
+
+      .product-details h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+      }
+
+      .product-details p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+      }
+
+      .specs-list {
+        margin-bottom: 1.5rem;
+      }
+
+      .specs-list li {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      /* ======================= */
+      /* BOTÕES DE AÇÃO          */
+      /* ======================= */
+      .product-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .add-to-cart-btn,
+      .buy-now-btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+      }
+
+      .add-to-cart-btn {
+        background-color: var(--dark-color);
+        color: var(--light-color);
+      }
+
+      .add-to-cart-btn:hover {
+        background-color: #333;
+        transform: translateY(-2px);
+      }
+
+      .buy-now-btn {
+        background-color: var(--primary-color);
+        color: var(--light-color);
+      }
+
+      .buy-now-btn:hover {
+        background-color: #e65a50;
+        transform: translateY(-2px);
+      }
+
+      /* ======================= */
+      /* RODAPÉ (FOOTER)         */
+      /* ======================= */
+      .footer {
+        background-color: var(--dark-color);
+        color: var(--gray-light);
+        padding: 4rem 0 2rem;
+        margin-top: 4rem;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-column h4 {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        color: var(--light-color);
+      }
+
+      .footer-column ul li {
+        margin-bottom: 0.75rem;
+      }
+
+      .footer-column ul a {
+        color: #ccc;
+        transition: color 0.3s ease;
+      }
+
+      .footer-column ul a:hover {
+        color: var(--primary-color);
+      }
+
+      .social-icons a {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        color: #ccc;
+        transition: color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: var(--primary-color);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid #444;
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+
+      /* ======================= */
+      /* RESPONSIVIDADE          */
+      /* ======================= */
+      @media (min-width: 769px) {
+        .product-content {
+          flex-direction: row;
+        }
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding-top: 70px;
+        }
+
+        .header {
+          height: 70px;
+          padding: 1rem;
+        }
+
+        .header .nav-links {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 70px;
+          left: 0;
+          width: 100%;
+          background-color: var(--light-color);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+          transition: transform 0.3s ease-in-out;
+          transform: translateX(-100%);
+        }
+
+        .header .nav-links.active {
+          display: flex;
+          transform: translateX(0);
+        }
+
+        .header .nav-links a {
+          padding: 1rem;
+          border-bottom: 1px solid #f4f4f4;
+          width: 100%;
+          text-align: center;
+        }
+
+        .header .nav-links a:last-child {
+          border-bottom: none;
+        }
+
+        .hamburger {
+          display: block;
+        }
+
+        .header .nav-icons {
+          display: none;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ======================= -->
+    <!-- CABEÇALHO (HEADER)      -->
+    <!-- ======================= -->
+    <header class="header">
+      <div class="logo">Copains</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="pagina inicial.html">Início</a></li>
+          <li><a href="catalogo de produtos.html">Produtos</a></li>
+          <li><a href="favoritos.html">Favoritos</a></li>
+          <li><a href="carrinho.html">Carrinho</a></li>
+          <li><a href="#">Sair</a></li>
+        </ul>
+      </nav>
+      <div class="nav-icons">
+        <a href="#"><i class="fas fa-search"></i></a>
+        <a href="#"><i class="fas fa-user"></i></a>
+        <div class="cart-icon-wrapper">
+          <a href="#"><i class="fas fa-shopping-cart"></i></a>
+          <span class="cart-item-count">0</span>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </button>
+    </header>
+
+    <!-- ======================= -->
+    <!-- CONTEÚDO PRINCIPAL      -->
+    <!-- ======================= -->
+    <main>
+      <section class="product-section container">
+        <div class="product-content">
+          <!-- Lado esquerdo: Imagem do produto -->
+          <div class="product-image-container flex-1">
+            <img
+              src="perfume cloé contratipo.jpg"
+              alt="Perfume Bad Boy"
+              class="product-image"
+            />
+          </div>
+
+          <!-- Lado direito: Detalhes do produto -->
+          <div class="product-details flex-1">
+            <h1>Perfume Chloé EUA DE PARFUM - Contratipo Masculino</h1>
+            <h2>R$ 60,00</h2>
+            <p>
+             Chloé Eau de Parfum é a celebração da feminilidade moderna: criativa, confiante e com um senso de elegância espontânea. É a fragrância de assinatura para a mulher que aprecia o luxo discreto e a sofisticação atemporal.
+            </p>
+            <ul class="specs-list list-unstyled">
+              <li>
+                <i class="fas fa-check-circle text-success"></i> NATURAL SPLAY
+                Contratipo
+              </li>
+              <li>
+                <i class="fas fa-check-circle text-success"></i> Volume: 50ml
+              </li>
+              <li>
+                <i class="fas fa-check-circle text-success"></i> Essência:
+                Amadeirada e oriental
+              </li>
+            </ul>
+
+            <div class="product-buttons">
+              <button class="add-to-cart-btn">
+                <i class="fas fa-shopping-cart me-2"></i> Adicionar ao Carrinho
+              </button>
+              <button class="buy-now-btn">
+                <i class="fas fa-bolt me-2"></i> Comprar Agora
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ======================= -->
+    <!-- RODAPÉ (FOOTER)         -->
+    <!-- ======================= -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-column">
+            <h4>Categorias</h4>
+            <ul class="list-unstyled">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="catalogo_de_produtos.html">Produtos</li>
+              <li><a href="favoritos.html">Favoritos</a></li>
+              <li><a href="carrinho.html">Carrinho</a></li>
+              <li><a href="#"></a>Sair</li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Links Úteis</h4>
+            <ul class="list-unstyled">
+              <li><a href="sobre_Nois.html">Sobre Nós</a></li>
+              <li><a href="FAQ.html">FAQ</a></li>
+              <li>
+                <a href="Politicas_de_privacidade.html"
+                  >Política de Privacidade</a
+                >
+              </li>
+              <li><a href="Termos_de_Uso.html">Termos de Serviço</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Fique Conectado</h4>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/Copains Pv"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="https://www.instagram.com/Copains.pv"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://wa.me/552198092293"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="mb-0">&copy; 2024 Copains. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS (inclui Popper.js) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- ======================= -->
+    <!-- SCRIPT DA PÁGINA        -->
+    <!-- ======================= -->
+    <script>
+      /**
+       * Este script é executado quando o conteúdo do DOM (a página HTML)
+       * é completamente carregado e analisado pelo navegador.
+       */
+      document.addEventListener("DOMContentLoaded", () => {
+        // Seleciona o botão do menu hambúrguer e a lista de links de navegação.
+        const hamburgerBtn = document.getElementById("hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        /**
+         * Adiciona um evento de clique ao botão do menu hambúrguer.
+         * A verificação 'if (hamburgerBtn && navLinks)' garante que o código
+         * não quebre se os elementos não forem encontrados na página.
+         */
+        if (hamburgerBtn && navLinks) {
+          hamburgerBtn.addEventListener("click", () => {
+            // Alterna a classe 'active' na lista de links,
+            // o que, de acordo com o CSS, exibe ou esconde o menu em telas menores.
+            navLinks.classList.toggle("active");
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

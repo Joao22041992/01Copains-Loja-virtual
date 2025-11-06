@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copains - Smartwatch Ultra Gold</title>
+
+    <!-- Bootstrap CSS e JS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- Font Awesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ======================= */
+        /* ESTILOS GERAIS          */
+        /* ======================= */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* ======================= */
+        /* CABEÇALHO (HEADER)      */
+        /* ======================= */
+        .header {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-style: italic;
+            color: #212529;
+        }
+
+        /* ======================= */
+        /* SEÇÃO DO PRODUTO        */
+        /* ======================= */
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .size-option {
+            background-color: #e9ecef;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        /* Estilo para a opção de tamanho selecionada ou ao passar o mouse */
+        .size-option.selected,
+        .size-option:hover {
+            background-color: #212529;
+            color: #fff;
+            border-color: #212529;
+        }
+
+        /* ======================= */
+        /* MODAL DO CARRINHO       */
+        /* ======================= */
+        .cart-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .cart-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            /* Começa fora da tela */
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background-color: #FFFFFF;
+            z-index: 2000;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.15);
+            transition: right 0.4s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-modal.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-close-btn {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .cart-body { flex-grow: 1; overflow-y: auto; padding: 1rem; }
+        .cart-item { display: flex; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0f0f0; }
+        .cart-item img { width: 80px; height: 80px; object-fit: cover; border-radius: 5px; margin-right: 1rem; }
+        .cart-item-info { flex-grow: 1; }
+        .cart-item-info h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .cart-item-info p { font-size: 0.9rem; color: #666; }
+        .cart-item-actions { display: flex; align-items: center; margin-top: 0.5rem; }
+        .cart-item-actions button { background: #eee; border: none; padding: 0.3rem 0.6rem; cursor: pointer; }
+        .cart-item-actions span { padding: 0 1rem; font-weight: 700; }
+        .cart-footer { padding: 1.5rem; border-top: 1px solid #eee; }
+        .cart-total { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; }
+        .checkout-btn { width: 100%; }
+
+        /* ======================= */
+        /* RODAPÉ (FOOTER)         */
+        /* ======================= */
+        .footer {
+            background-color: #212529;
+            color: #adb5bd;
+        }
+    </style>
+</head>
+
+<body class="pt-5">
+
+    <!-- ======================= -->
+    <!-- CABEÇALHO (HEADER)      -->
+    <!-- ======================= -->
+    <header class="navbar navbar-expand-lg navbar-light bg-light fixed-top header">
+        <div class="container">
+            <a class="navbar-brand logo" href="pagina inicial.html">Copains</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="pagina inicial.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="catalogo de produtos.html">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="favoritos.html">Favoritos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sair</a>
+                    </li>
+                </ul>
+                <div class="d-lg-flex ms-lg-4 d-none d-lg-block align-items-center">
+                    <a href="#" class="btn btn-link text-dark"><i class="fas fa-user"></i></a>
+                    <div class="position-relative cart-icon-wrapper" id="cart-icon">
+                        <a href="#" class="btn btn-link text-dark" aria-label="Abrir carrinho de compras"><i class="fas fa-shopping-cart"></i></a>
+                        <span class="badge bg-primary rounded-pill position-absolute top-0 start-100 translate-middle" id="cart-item-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ======================= -->
+    <!-- CONTEÚDO PRINCIPAL      -->
+    <!-- ======================= -->
+    <main class="py-5">
+        <section class="product-section container">
+            <div class="row gx-lg-5 align-items-center flex-column flex-lg-row">
+
+                <!-- Lado esquerdo: Imagem do produto -->
+                <div class="col-12 col-lg-6 mb-4 mb-lg-0 text-center">
+                    <img src="https://placehold.co/600x600/E5D9B6/333333?text=Smartwatch" alt="Smartwatch Ultra Gold" class="product-image img-fluid">
+                </div>
+
+                <!-- Lado direito: Detalhes do produto -->
+                <div class="col-12 col-lg-6">
+                    <div class="p-lg-4" data-id="prod-sw-gold" data-name="Smartwatch Ultra Gold 24k 49mm" data-price="180.00" data-image="https://placehold.co/600x600/E5D9B6/333333?text=Smartwatch">
+                        <h1 class="display-4 fw-bold">Smartwatch Ultra Gold 24k 49mm</h1>
+                        <h2 class="text-primary fw-bold mt-3">R$ 180,00</h2>
+                        <p class="lead mt-4">
+                            Experimente a sofisticação e o desempenho com o nosso Smartwatch Ultra Gold. Com acabamento em ouro 24k e uma tela generosa de 49mm, ele combina estilo e funcionalidade para o seu dia a dia. Monitore sua saúde, receba notificações e organize sua rotina com um toque de elegância.
+                        </p>
+                        <ul class="list-unstyled mt-4">
+                            <li><i class="fas fa-check-circle text-success me-2"></i> Acabamento: Ouro 24k</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i> Tamanho da Tela: 49mm</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i> Funcionalidades: Monitoramento de saúde, notificações e mais</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i> Compatibilidade: Universal</li>
+                        </ul>
+
+                        <!-- Seletor de Tamanho -->
+                        <div class="my-4">
+                            <label for="size-select" class="form-label fw-bold">Selecione o Tamanho da Pulseira:</label>
+                            <div class="size-options d-flex flex-wrap gap-2" id="size-options">
+                                <div class="size-option" data-size="P">P</div>
+                                <div class="size-option" data-size="M">M</div>
+                                <div class="size-option" data-size="G">G</div>
+                                <div class="size-option" data-size="GG">GG</div>
+                            </div>
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-dark btn-lg flex-grow-1 add-to-cart-btn"><i class="fas fa-shopping-cart me-2"></i> Adicionar ao Carrinho</button>
+                            <button class="btn btn-primary btn-lg flex-grow-1"><i class="fas fa-bolt me-2"></i> Comprar Agora</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================= -->
+    <!-- RODAPÉ (FOOTER)         -->
+    <!-- ======================= -->
+    <footer class="footer py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h4 class="text-white mb-4">Categorias</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none">Novidades</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Promoções</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Acessórios</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Relógios</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4 class="text-white mb-4">Links Úteis</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none">Sobre Nós</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Termos de Serviço</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4 class="text-white mb-4">Fique Conectado</h4>
+                    <div class="social-icons">
+                        <a href="#" class="text-white-50 me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
+                        <a href="#" class="text-white-50 me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-white-50 me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-4 border-top border-secondary">
+                <p class="text-muted mb-0">&copy; 2024 Copains. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ======================= -->
+    <!-- MODAL DO CARRINHO       -->
+    <!-- ======================= -->
+    <div class="cart-modal-overlay" id="cart-modal-overlay">
+        <div class="cart-modal" id="cart-modal">
+            <div class="cart-header">
+                <h3>Meu Carrinho</h3>
+                <button class="cart-close-btn" id="cart-close-btn">&times;</button>
+            </div>
+            <div class="cart-body" id="cart-body">
+                <!-- Itens do carrinho serão inseridos aqui via JS -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total">R$ 0,00</span>
+                </div>
+                <button class="btn btn-primary w-100 checkout-btn">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================= -->
+    <!-- SCRIPT DA PÁGINA        -->
+    <!-- ======================= -->
+    <script>
+        /**
+         * Script principal da página, executado após o carregamento completo do DOM.
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- SELETORES DE ELEMENTOS ---
+            const sizeOptions = document.querySelectorAll('.size-option');
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            const cartIcon = document.getElementById('cart-icon');
+            const cartModalOverlay = document.getElementById('cart-modal-overlay');
+            const cartModal = document.getElementById('cart-modal');
+            const cartCloseBtn = document.getElementById('cart-close-btn');
+            const cartBody = document.getElementById('cart-body');
+            const cartItemCount = document.getElementById('cart-item-count');
+            const cartTotal = document.getElementById('cart-total');
+
+            // --- ESTADO DA APLICAÇÃO ---
+            let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+
+            // --- EVENT LISTENERS ---
+
+            // Evento para seleção de tamanho da pulseira
+            sizeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    sizeOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                });
+            });
+
+            // Eventos para abrir/fechar o modal do carrinho
+            cartIcon.addEventListener('click', toggleCartModal);
+            cartCloseBtn.addEventListener('click', toggleCartModal);
+            cartModalOverlay.addEventListener('click', (e) => {
+                if (e.target === cartModalOverlay) toggleCartModal();
+            });
+
+            // Evento para adicionar item ao carrinho
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const card = e.target.closest('.p-lg-4[data-id]');
+                    const id = card.dataset.id;
+                    const name = card.dataset.name;
+                    const price = parseFloat(card.dataset.price);
+                    const image = card.dataset.image;
+                    addItemToCart(id, name, price, image);
+                });
+            });
+
+            // Eventos para alterar quantidade no carrinho
+            cartBody.addEventListener('click', (e) => {
+                const target = e.target;
+                const id = target.closest('.cart-item')?.dataset.id;
+                if (!id) return;
+
+                if (target.classList.contains('quantity-increase')) updateItemQuantity(id, 1);
+                if (target.classList.contains('quantity-decrease')) updateItemQuantity(id, -1);
+            });
+
+            // --- FUNÇÕES DO CARRINHO ---
+
+            function toggleCartModal() {
+                cartModalOverlay.classList.toggle('active');
+                cartModal.classList.toggle('active');
+            }
+
+            function addItemToCart(id, name, price, image) {
+                const existingItem = cart.find(item => item.id === id);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ id, name, price, image, quantity: 1 });
+                }
+                updateCart();
+            }
+
+            function updateItemQuantity(id, change) {
+                const item = cart.find(item => item.id === id);
+                if (!item) return;
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(cartItem => cartItem.id !== id);
+                }
+                updateCart();
+            }
+
+            function updateCart() {
+                renderCartItems();
+                renderSubtotal();
+                updateCartIconCount();
+                localStorage.setItem('shoppingCart', JSON.stringify(cart));
+            }
+
+            function renderCartItems() {
+                if (cart.length === 0) {
+                    cartBody.innerHTML = '<p>Seu carrinho está vazio.</p>';
+                    return;
+                }
+                cartBody.innerHTML = cart.map(item => `
+                    <div class="cart-item" data-id="${item.id}">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>R$ ${item.price.toFixed(2)}</p>
+                            <div class="cart-item-actions">
+                                <button class="quantity-decrease">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-increase">+</button>
+                            </div>
+                        </div>
+                    </div>`).join('');
+            }
+
+            function renderSubtotal() {
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                cartTotal.textContent = `R$ ${total.toFixed(2)}`;
+            }
+
+            function updateCartIconCount() {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartItemCount.textContent = totalItems;
+                cartItemCount.style.display = totalItems > 0 ? 'inline-block' : 'none';
+            }
+
+            // --- INICIALIZAÇÃO ---
+            updateCart();
+        });
+    </script>
+</body>
+
+</html>
+
+            /**
+             * Adiciona um evento de clique para cada opção de tamanho.
+             */
+            sizeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // 1. Remove a classe 'selected' de todas as outras opções
+                    //    para garantir que apenas uma possa ser selecionada por vez.
+                    sizeOptions.forEach(opt => opt.classList.remove('selected'));
+
+                    // 2. Adiciona a classe 'selected' apenas na opção que foi clicada.
+                    option.classList.add('selected');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

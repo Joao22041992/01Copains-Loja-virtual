@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copains - Smart watch W69 ultra</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Configuração customizada para o Tailwind CSS, estendendo o tema padrão.
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              primary: "#FF6F61",
+              dark: "#111111",
+              light: "#FFFFFF",
+              text: "#333",
+              "gray-light": "#f4f4f4", // Renomeado para evitar conflito com 'gray'
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Font Awesome para Ícones -->
+    <!-- CORREÇÃO: O atributo 'xintegrity' foi corrigido para 'integrity'. -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Estilos customizados para o Modal do Carrinho e outras pequenas sobreposições -->
+    <style>
+      body {
+        padding-top: 80px;
+      }
+      .cart-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+      .cart-modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .cart-modal {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        max-width: 400px;
+        height: 100%;
+        background-color: #ffffff;
+        z-index: 2000;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.15);
+        transition: right 0.4s ease-in-out;
+        display: flex;
+        flex-direction: column;
+      }
+      .cart-modal.active {
+        right: 0;
+      }
+      .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        border-bottom: 1px solid #eee;
+      }
+      .cart-close-btn {
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+      }
+      .cart-body {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 1rem;
+      }
+      .cart-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .cart-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-right: 1rem;
+      }
+      .cart-item-info {
+        flex-grow: 1;
+      }
+      .cart-item-info h4 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .cart-item-info p {
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .cart-item-actions {
+        display: flex;
+        align-items: center;
+        margin-top: 0.5rem;
+      }
+      .cart-item-actions button {
+        background: #eee;
+        border: none;
+        padding: 0.3rem 0.6rem;
+        cursor: pointer;
+      }
+      .cart-item-actions span {
+        padding: 0 1rem;
+        font-weight: 700;
+      }
+      .cart-footer {
+        padding: 1.5rem;
+        border-top: 1px solid #eee;
+      }
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+      .checkout-btn {
+        width: 100%;
+      }
+
+      /* Esconde o menu mobile por padrão */
+      .nav-links-mobile {
+        display: none;
+      }
+      /* Mostra o menu mobile quando a classe 'active' é adicionada */
+      .nav-links-mobile.active {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-light text-text">
+    <!-- ======================= -->
+    <!-- CABEÇALHO (HEADER)      -->
+    <!-- ======================= -->
+    <header
+      class="fixed top-0 left-0 w-full bg-light shadow-md z-50 flex justify-between items-center px-6 md:px-8 py-4 h-[80px]"
+    >
+      <a href="pagina inicial.html" class="text-3xl font-bold italic text-dark"
+        >Copains</a
+      >
+
+      <!-- Navegação para Desktop -->
+      <nav class="hidden md:block">
+        <ul class="flex gap-10">
+          <li>
+            <a
+              href="pagina inicial.html"
+              class="font-semibold hover:text-primary transition-colors"
+              >Início</a
+            >
+          </li>
+          <li>
+            <a
+              href="catalogo de produtos.html"
+              class="font-semibold hover:text-primary transition-colors"
+              >Produtos</a
+            >
+          </li>
+          <li>
+            <a
+              href="favoritos.html"
+              class="font-semibold hover:text-primary transition-colors"
+              >Favoritos</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="font-semibold hover:text-primary transition-colors"
+              >Sair</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Ícones e Menu Hambúrguer -->
+      <div class="flex items-center gap-6">
+        <div class="hidden md:flex items-center gap-6">
+          <a href="#" class="text-xl hover:text-primary transition-colors"
+            ><i class="fas fa-search"></i
+          ></a>
+          <a href="#" class="text-xl hover:text-primary transition-colors"
+            ><i class="fas fa-user"></i
+          ></a>
+        </div>
+        <div class="relative" id="cart-icon" style="cursor: pointer">
+          <i
+            class="fas fa-shopping-cart text-xl hover:text-primary transition-colors"
+          ></i>
+          <span
+            id="cart-item-count"
+            class="absolute -top-2 -right-2 bg-primary text-light rounded-full px-1.5 py-0.5 text-xs font-bold hidden"
+            >0</span
+          >
+        </div>
+        <button
+          class="hamburger md:hidden text-2xl cursor-pointer bg-transparent border-none"
+          id="hamburger-btn"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Menu Mobile (colapsável) -->
+    <nav
+      id="mobile-menu"
+      class="nav-links-mobile fixed top-[80px] left-0 w-full bg-light shadow-lg"
+    >
+      <ul class="flex flex-col">
+        <li>
+          <a
+            href="pagina inicial.html"
+            class="block text-center font-semibold py-4 border-b border-gray-200 hover:bg-gray-100"
+            >Início</a
+          >
+        </li>
+        <li>
+          <a
+            href="catalogo de produtos.html"
+            class="block text-center font-semibold py-4 border-b border-gray-200 hover:bg-gray-100"
+            >Produtos</a
+          >
+        </li>
+        <li>
+          <a
+            href="favoritos.html"
+            class="block text-center font-semibold py-4 border-b border-gray-200 hover:bg-gray-100"
+            >Favoritos</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="block text-center font-semibold py-4 hover:bg-gray-100"
+            >Sair</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <!-- ======================= -->
+    <!-- CONTEÚDO PRINCIPAL      -->
+    <!-- ======================= -->
+    <main>
+      <section class="product-section container mx-auto px-4 md:px-8 py-16">
+        <div
+          class="product-content flex flex-col md:flex-row gap-12 md:gap-16 items-center"
+        >
+          <!-- Lado esquerdo: Imagem do produto -->
+          <div class="product-image-container flex-1 text-center">
+            <img
+              src="https://placehold.co/600x600/FF6F61/ffffff?text=Smart+Watch+W69+Ultra"
+              alt="Smart watch W69 ultra"
+              class="w-full h-auto rounded-xl shadow-lg max-w-sm mx-auto"
+            />
+          </div>
+
+          <!-- Lado direito: Detalhes do produto -->
+          <div
+            class="product-details flex-1 p-4"
+            data-id="prod-w69-ultra"
+            data-name="Smart watch W69 ultra"
+            data-price="180.00"
+            data-image="https://placehold.co/600x600/FF6F61/ffffff?text=Smart+Watch+W69+Ultra"
+          >
+            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-dark">
+              Smart watch W69 ultra
+            </h1>
+            <h2 class="text-2xl md:text-3xl mb-4 text-primary font-bold">
+              R$ 180,00
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed mb-8 text-text">
+              O Smart watch W69 ultra combina estilo, funcionalidade e
+              durabilidade. Perfeito para o dia a dia, para acompanhar seus
+              treinos e para manter você conectado com o mundo de forma prática
+              e elegante.
+            </p>
+            <ul class="specs-list mb-6 space-y-2">
+              <li class="text-base md:text-lg">
+                <i class="fas fa-check-circle text-primary mr-2"></i> Material:
+                Caixa de alta qualidade e pulseiras intercambiáveis
+              </li>
+              <li class="text-base md:text-lg">
+                <i class="fas fa-check-circle text-primary mr-2"></i>
+                Funcionalidades: Monitor de batimentos cardíacos, notificações,
+                etc.
+              </li>
+              <li class="text-base md:text-lg">
+                <i class="fas fa-check-circle text-primary mr-2"></i> Acessórios
+                inclusos: Carregador e pulseira extra
+              </li>
+            </ul>
+            <div class="product-buttons flex flex-col sm:flex-row gap-4">
+              <button
+                class="add-to-cart-btn bg-dark text-light py-3 px-6 rounded-lg text-base md:text-lg font-bold cursor-pointer transition-transform duration-200 hover:bg-gray-800 hover:-translate-y-0.5"
+              >
+                <i class="fas fa-shopping-cart mr-2"></i> Adicionar ao Carrinho
+              </button>
+              <button
+                class="buy-now-btn bg-primary text-light py-3 px-6 rounded-lg text-base md:text-lg font-bold cursor-pointer transition-transform duration-200 hover:bg-red-500 hover:-translate-y-0.5"
+              >
+                <i class="fas fa-bolt mr-2"></i> Comprar Agora
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ======================= -->
+    <!-- RODAPÉ (FOOTER)         -->
+    <!-- ======================= -->
+    <footer class="bg-dark text-gray-light py-16 mt-16">
+      <div
+        class="container mx-auto px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-12"
+      >
+        <div class="footer-column">
+          <h4 class="text-lg font-bold mb-6 text-light">Categorias</h4>
+          <ul class="space-y-3">
+            <li>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-primary transition-colors"
+                >Novidades</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-primary transition-colors"
+                >Promoções</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-primary transition-colors"
+                >Acessórios</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-primary transition-colors"
+                >Eletrônicos</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4 class="text-lg font-bold mb-6 text-light">Links Úteis</h4>
+          <ul class="space-y-3">
+            <li>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-primary transition-colors"
+                >Sobre Nós</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-primary transition-colors"
+                >FAQ</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-primary transition-colors"
+                >Política de Privacidade</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-primary transition-colors"
+                >Termos de Serviço</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4 class="text-lg font-bold mb-6 text-light">Fique Conectado</h4>
+          <div class="social-icons flex gap-4">
+            <a
+              href="#"
+              class="text-xl text-gray-400 hover:text-primary transition-colors"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a
+              href="#"
+              class="text-xl text-gray-400 hover:text-primary transition-colors"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a
+              href="#"
+              class="text-xl text-gray-400 hover:text-primary transition-colors"
+              ><i class="fab fa-twitter"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="footer-bottom text-center pt-8 border-t border-gray-700 text-gray-500 text-sm"
+      >
+        <p>&copy; 2024 Copains. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- ======================= -->
+    <!-- MODAL DO CARRINHO       -->
+    <!-- ======================= -->
+    <div class="cart-modal-overlay" id="cart-modal-overlay">
+      <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+          <h3>Meu Carrinho</h3>
+          <button class="cart-close-btn" id="cart-close-btn">&times;</button>
+        </div>
+        <div class="cart-body" id="cart-body">
+          <!-- Itens do carrinho serão inseridos aqui via JS -->
+        </div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>Total:</span>
+            <span id="cart-total">R$ 0,00</span>
+          </div>
+          <button
+            class="checkout-btn bg-primary text-light py-3 px-6 rounded-lg font-bold"
+          >
+            Finalizar Compra
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================= -->
+    <!-- SCRIPTS DA PÁGINA       -->
+    <!-- ======================= -->
+    <script>
+      /**
+       * Script principal da página, executado após o carregamento completo do DOM.
+       * Contém a lógica para o menu responsivo e a funcionalidade do carrinho de compras.
+       */
+      document.addEventListener("DOMContentLoaded", () => {
+        // ===========================
+        // LÓGICA DO MENU RESPONSIVO
+        // ===========================
+        const hamburgerBtn = document.getElementById("hamburger-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        if (hamburgerBtn && mobileMenu) {
+          hamburgerBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("active");
+          });
+        }
+
+        // ===========================
+        // LÓGICA DO CARRINHO
+        // ===========================
+
+        // --- SELETORES DE ELEMENTOS ---
+        const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+        const cartIcon = document.getElementById("cart-icon");
+        const cartModalOverlay = document.getElementById("cart-modal-overlay");
+        const cartModal = document.getElementById("cart-modal");
+        const cartCloseBtn = document.getElementById("cart-close-btn");
+        const cartBody = document.getElementById("cart-body");
+        const cartItemCount = document.getElementById("cart-item-count");
+        const cartTotal = document.getElementById("cart-total");
+
+        // --- ESTADO DA APLICAÇÃO ---
+        let cart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+
+        // --- EVENT LISTENERS ---
+
+        // Eventos para abrir/fechar o modal do carrinho
+        cartIcon.addEventListener("click", toggleCartModal);
+        cartCloseBtn.addEventListener("click", toggleCartModal);
+        cartModalOverlay.addEventListener("click", (e) => {
+          if (e.target === cartModalOverlay) toggleCartModal();
+        });
+
+        // Evento para adicionar item ao carrinho
+        addToCartButtons.forEach((button) => {
+          button.addEventListener("click", (e) => {
+            const productElement = e.target.closest(
+              ".product-details[data-id]"
+            );
+            const id = productElement.dataset.id;
+            const name = productElement.dataset.name;
+            const price = parseFloat(productElement.dataset.price);
+            const image = productElement.dataset.image;
+            addItemToCart(id, name, price, image);
+          });
+        });
+
+        // Eventos para alterar quantidade no carrinho
+        cartBody.addEventListener("click", (e) => {
+          const target = e.target;
+          const id = target.closest(".cart-item")?.dataset.id;
+          if (!id) return;
+
+          if (target.classList.contains("quantity-increase"))
+            updateItemQuantity(id, 1);
+          if (target.classList.contains("quantity-decrease"))
+            updateItemQuantity(id, -1);
+        });
+
+        // --- FUNÇÕES DO CARRINHO ---
+
+        /**
+         * Função: Alternar a visibilidade do modal do carrinho.
+         * Descrição: Adiciona/remove a classe 'active' para controlar a exibição via CSS.
+         */
+        function toggleCartModal() {
+          cartModalOverlay.classList.toggle("active");
+          cartModal.classList.toggle("active");
+        }
+
+        /**
+         * Função: Adicionar um item ao carrinho.
+         * Descrição: Se o item já existe, incrementa a quantidade. Senão, adiciona como novo.
+         * @param {string} id - O ID único do produto.
+         * @param {string} name - O nome do produto.
+         * @param {number} price - O preço do produto.
+         * @param {string} image - A URL da imagem do produto.
+         */
+        function addItemToCart(id, name, price, image) {
+          const existingItem = cart.find((item) => item.id === id);
+          if (existingItem) {
+            existingItem.quantity++;
+          } else {
+            cart.push({ id, name, price, image, quantity: 1 });
+          }
+          updateCart();
+        }
+
+        /**
+         * Função: Atualizar a quantidade de um item.
+         * Descrição: Altera a quantidade de um item no carrinho. Se a quantidade for 0, remove o item.
+         * @param {string} id - O ID do item a ser atualizado.
+         * @param {number} change - O valor a ser adicionado ou subtraído (1 ou -1).
+         */
+        function updateItemQuantity(id, change) {
+          const item = cart.find((item) => item.id === id);
+          if (!item) return;
+          item.quantity += change;
+          if (item.quantity <= 0) {
+            cart = cart.filter((cartItem) => cartItem.id !== id);
+          }
+          updateCart();
+        }
+
+        /**
+         * Função: Atualizar a interface do carrinho.
+         * Descrição: Orquestra todas as atualizações visuais do carrinho e salva no localStorage.
+         */
+        function updateCart() {
+          renderCartItems();
+          renderSubtotal();
+          updateCartIconCount();
+          localStorage.setItem("shoppingCart", JSON.stringify(cart));
+        }
+
+        /**
+         * Função: Renderizar os itens no modal.
+         * Descrição: Gera o HTML para cada item do carrinho e o insere no modal.
+         */
+        function renderCartItems() {
+          if (cart.length === 0) {
+            cartBody.innerHTML =
+              '<p class="text-center text-gray-500">Seu carrinho está vazio.</p>';
+            return;
+          }
+          cartBody.innerHTML = cart
+            .map(
+              (item) => `
+                    <div class="cart-item" data-id="${item.id}">
+                        <img src="${item.image}" alt="${
+                item.name
+              }" onerror="this.onerror=null;this.src='https://placehold.co/80x80/f4f4f4/ccc?text=Img';">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>R$ ${item.price.toFixed(2)}</p>
+                            <div class="cart-item-actions">
+                                <button class="quantity-decrease">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-increase">+</button>
+                            </div>
+                        </div>
+                    </div>`
+            )
+            .join("");
+        }
+
+        /**
+         * Função: Renderizar o subtotal.
+         * Descrição: Calcula e exibe o valor total dos itens no carrinho.
+         */
+        function renderSubtotal() {
+          const total = cart.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          cartTotal.textContent = `R$ ${total.toFixed(2).replace(".", ",")}`;
+        }
+
+        /**
+         * Função: Atualizar o contador do ícone do carrinho.
+         * Descrição: Mostra a quantidade total de itens no ícone do cabeçalho.
+         */
+        function updateCartIconCount() {
+          const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+          cartItemCount.textContent = totalItems;
+          cartItemCount.style.display = totalItems > 0 ? "block" : "none";
+        }
+
+        // --- INICIALIZAÇÃO ---
+        // Atualiza o carrinho na inicialização para carregar dados do localStorage.
+        updateCart();
+      });
+    </script>
+  </body>
+</html>

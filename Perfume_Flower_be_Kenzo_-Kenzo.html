@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copains - Perfume Flower by Kenzo contra tipo</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome para Ícones -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* =================================== */
+      /*  VARIÁVEIS E ESTILOS GLOBAIS (CSS)  */
+      /* =================================== */
+      :root {
+        --primary-color: #ff6f61;
+        --dark-color: #111111;
+        --light-color: #ffffff;
+        --text-color: #333;
+        --gray-light: #f8f9fa;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: var(--gray-light);
+        color: var(--text-color);
+        /* Adiciona espaço no topo para o cabeçalho fixo não sobrepor o conteúdo. */
+        padding-top: 80px;
+      }
+
+      /* ======================= */
+      /* CABEÇALHO (HEADER)      */
+      /* ======================= */
+      .navbar {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        height: 80px;
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-style: italic;
+        color: var(--dark-color) !important;
+      }
+
+      .nav-link {
+        font-weight: 600;
+        color: var(--dark-color) !important;
+      }
+
+      .nav-link:hover {
+        color: var(--primary-color) !important;
+      }
+
+      /* ======================= */
+      /* SEÇÃO DO PRODUTO        */
+      /* ======================= */
+      .product-section {
+        padding: 4rem 0;
+      }
+
+      .product-image-container {
+        padding: 1rem;
+        background-color: var(--light-color);
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      .product-details {
+        padding: 1rem;
+      }
+
+      .product-details h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--dark-color);
+      }
+
+      .product-details h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+      }
+
+      .specs-list li {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 0.5rem;
+      }
+
+      .product-buttons .btn {
+        font-weight: 700;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        transition: transform 0.2s ease;
+      }
+
+      .product-buttons .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-dark-custom {
+        background-color: var(--dark-color);
+        color: var(--light-color);
+        border: none;
+      }
+
+      .btn-primary-custom {
+        background-color: var(--primary-color);
+        color: var(--light-color);
+        border: none;
+      }
+
+      /* ======================= */
+      /* RODAPÉ (FOOTER)         */
+      /* ======================= */
+      .footer {
+        background-color: var(--dark-color);
+        color: #aaa;
+      }
+
+      .footer h4 {
+        color: var(--light-color);
+      }
+
+      .footer a {
+        text-decoration: none;
+      }
+
+      .social-icons a {
+        color: #ccc;
+        transition: color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: var(--primary-color);
+      }
+
+      /* ======================= */
+      /* MODAL DO CARRINHO       */
+      /* ======================= */
+      .cart-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+      .cart-modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .cart-modal {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        max-width: 400px;
+        height: 100%;
+        background-color: #ffffff;
+        z-index: 2000;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.15);
+        transition: right 0.4s ease-in-out;
+        display: flex;
+        flex-direction: column;
+      }
+      .cart-modal.active {
+        right: 0;
+      }
+      .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        border-bottom: 1px solid #eee;
+      }
+      .cart-close-btn {
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+      }
+      .cart-body {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 1rem;
+      }
+      .cart-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .cart-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-right: 1rem;
+      }
+      .cart-item-info {
+        flex-grow: 1;
+      }
+      .cart-item-info h4 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .cart-item-info p {
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .cart-item-actions {
+        display: flex;
+        align-items: center;
+        margin-top: 0.5rem;
+      }
+      .cart-item-actions button {
+        background: #eee;
+        border: none;
+        padding: 0.3rem 0.6rem;
+        cursor: pointer;
+      }
+      .cart-item-actions span {
+        padding: 0 1rem;
+        font-weight: 700;
+      }
+      .cart-footer {
+        padding: 1.5rem;
+        border-top: 1px solid #eee;
+      }
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+      .checkout-btn {
+        width: 100%;
+      }
+
+      /* ======================= */
+      /* RESPONSIVIDADE          */
+      /* ======================= */
+      @media (max-width: 768px) {
+        .product-section {
+          padding: 2rem 0;
+        }
+        body {
+          padding-top: 70px;
+        }
+        .navbar {
+          height: 70px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ======================= -->
+    <!-- CABEÇALHO (HEADER)      -->
+    <!-- ======================= -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="pagina inicial.html">Copains</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Início</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="catalogo_de_produtos.html">Produtos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="carrinho.html">Carrinho</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="favoritos.html">Favoritos</a>
+            </li>
+           
+              <a class="nav-link" href="#">Sair</a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center ms-lg-3 mt-3 mt-lg-0">
+            <a href="#" class="nav-link me-3"><i class="fas fa-search"></i></a>
+            <a href="#" class="nav-link me-3"><i class="fas fa-user"></i></a>
+            <div
+              class="position-relative"
+              id="cart-icon"
+              style="cursor: pointer"
+            >
+              <i class="fas fa-shopping-cart"></i>
+              <span
+                id="cart-item-count"
+                class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle"
+                style="font-size: 0.75rem; display: none"
+                >0</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ======================= -->
+    <!-- CONTEÚDO PRINCIPAL      -->
+    <!-- ======================= -->
+    <main>
+      <section class="product-section container">
+        <div class="row g-4">
+          <!-- Lado esquerdo: Imagem do produto -->
+          <div
+            class="col-12 col-lg-6 d-flex justify-content-center align-items-center"
+          >
+            <div class="product-image-container">
+              <img
+                src="perfume for men blue seduction contratipo.jpg"
+                alt="Perfume Flower by Kenzo"
+                class="product-image"
+              />
+            </div>
+          </div>
+
+          <!-- Lado direito: Detalhes do produto -->
+          <div class="col-12 col-lg-6">
+            <div
+              class="product-details"
+              data-id="prod-flower-kenzo"
+              data-name="FLOWER BY KENZO - KENZO"
+              data-price="60.00"
+              data-image="https://placehold.co/600x600/f8f9fa/333?text=Flower%20by%20Kenzo"
+            >
+              <h1>FLOWER BY KENZO -contra tipo</h1>
+              <h2>R$ 60,00</h2>
+              <p class="lead">
+                O Flower by Kenzo é um perfume feminino icônico, lançado em 2000, conhecido por ser uma fragrância Floral Atalcada única e atemporal. Sua proposta poética é capturar o aroma de uma flor que, na natureza, não tem cheiro: a papoula, simbolizando a beleza e a força da natureza que floresce inesperadamente no ambiente urbano.
+                
+              </p>
+
+              <ul class="list-unstyled specs-list mt-4">
+                <li><i class="fas fa-tag me-2"></i> Tipo: Eau de Parfum</li>
+                <li><i class="fas fa-flask me-2"></i> Volume: 50ml</li>
+                <li><i class="fas fa-venus-mars me-2"></i> Gênero: Feminino</li>
+                <li><i class="fas fa-star me-2"></i> Versão: Contratipo</li>
+              </ul>
+
+              <p class="text-muted mt-4">
+                As imagens são meramente ilustrativas e podem sofrer alterações.
+              </p>
+
+              <div class="product-buttons d-grid gap-2 d-md-block mt-4">
+                <button class="btn btn-dark-custom btn-lg add-to-cart-btn">
+                  <i class="fas fa-shopping-cart me-2"></i> Adicionar ao
+                  Carrinho
+                </button>
+                <button class="btn btn-primary-custom btn-lg mt-2 mt-md-0">
+                  <i class="fas fa-bolt me-2"></i> Comprar Agora
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ======================= -->
+    <!-- RODAPÉ (FOOTER)         -->
+    <!-- ======================= -->
+    <footer class="footer text-center text-md-start py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-4 mb-md-0">
+            <h4 class="mb-3">Copains</h4>
+             <ul class="list-unstyled">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="catalogo_de_produtos.html">Produtos</a></li>
+              <li><a href="carrinho.html">Carrinho</a></li>
+              <li><a href="#"></a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Links Úteis</h4>
+            <ul class="list-unstyled">
+              <li><a href="sobre_Nois.html">Sobre Nós</a></li>
+              <li><a href="FAQ.html">FAQ</a></li>
+              <li><a href="Politicas_de_privacidade.html">Política de Privacidade</a></li>
+              <li><a href="Termos_de_Uso.html">Termos de Serviço</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Fique Conectado</h4>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/Copains Pv"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/Copains.pv"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://wa.me/552198092293"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="mb-0">&copy; 2024 Copains. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer> 
+        
+      </div>
+    </footer>
+
+    <!-- ======================= -->
+    <!-- MODAL DO CARRINHO       -->
+    <!-- ======================= -->
+    <div class="cart-modal-overlay" id="cart-modal-overlay">
+      <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+          <h3>Meu Carrinho</h3>
+          <button class="cart-close-btn" id="cart-close-btn">&times;</button>
+        </div>
+        <div class="cart-body" id="cart-body">
+          <!-- Itens do carrinho serão inseridos aqui via JS -->
+        </div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>Total:</span>
+            <span id="cart-total">R$ 0,00</span>
+          </div>
+          <button class="btn btn-primary-custom checkout-btn w-100">
+            Finalizar Compra
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================= -->
+    <!-- SCRIPTS                 -->
+    <!-- ======================= -->
+    <!-- Bootstrap JS (essencial para o menu responsivo e outras funcionalidades) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script da página com a lógica do carrinho -->
+    <script>
+      /**
+       * Script principal da página, executado após o carregamento completo do DOM.
+       * Contém toda a lógica para a funcionalidade do carrinho de compras.
+       */
+      document.addEventListener("DOMContentLoaded", () => {
+        // ===========================
+        // SELETORES DE ELEMENTOS DOM
+        // ===========================
+        // Armazena referências aos elementos HTML que serão manipulados pelo script.
+        const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+        const cartIcon = document.getElementById("cart-icon");
+        const cartModalOverlay = document.getElementById("cart-modal-overlay");
+        const cartModal = document.getElementById("cart-modal");
+        const cartCloseBtn = document.getElementById("cart-close-btn");
+        const cartBody = document.getElementById("cart-body");
+        const cartItemCount = document.getElementById("cart-item-count");
+        const cartTotal = document.getElementById("cart-total");
+
+        // =======================
+        // ESTADO DA APLICAÇÃO
+        // =======================
+        // Carrega o carrinho do localStorage ou inicializa um array vazio.
+        let cart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+
+        // =======================
+        // EVENT LISTENERS (Ouvintes de Eventos)
+        // =======================
+
+        // Adiciona eventos para abrir/fechar o modal do carrinho.
+        cartIcon.addEventListener("click", toggleCartModal);
+        cartCloseBtn.addEventListener("click", toggleCartModal);
+        cartModalOverlay.addEventListener("click", (e) => {
+          if (e.target === cartModalOverlay) {
+            toggleCartModal();
+          }
+        });
+
+        // Adiciona evento de clique para o botão "Adicionar ao Carrinho".
+        addToCartButtons.forEach((button) => {
+          button.addEventListener("click", (e) => {
+            const productElement = e.target.closest(
+              ".product-details[data-id]"
+            );
+            const id = productElement.dataset.id;
+            const name = productElement.dataset.name;
+            const price = parseFloat(productElement.dataset.price);
+            const image = productElement.dataset.image;
+            addItemToCart(id, name, price, image);
+          });
+        });
+
+        // Delegação de evento para os botões de quantidade (+/-) no carrinho.
+        cartBody.addEventListener("click", (e) => {
+          const target = e.target;
+          const id = target.closest(".cart-item")?.dataset.id;
+          if (!id) return;
+
+          if (target.classList.contains("quantity-increase")) {
+            updateItemQuantity(id, 1);
+          } else if (target.classList.contains("quantity-decrease")) {
+            updateItemQuantity(id, -1);
+          }
+        });
+
+        // =======================
+        // FUNÇÕES DO CARRINHO
+        // =======================
+
+        /**
+         * Função: Alternar a visibilidade do modal do carrinho.
+         * Descrição: Adiciona/remove a classe 'active' para controlar a exibição via CSS.
+         */
+        function toggleCartModal() {
+          cartModalOverlay.classList.toggle("active");
+          cartModal.classList.toggle("active");
+        }
+
+        /**
+         * Função: Adicionar um item ao carrinho.
+         * Descrição: Se o item já existe, incrementa a quantidade. Senão, adiciona como novo.
+         * @param {string} id - O ID único do produto.
+         * @param {string} name - O nome do produto.
+         * @param {number} price - O preço do produto.
+         * @param {string} image - A URL da imagem do produto.
+         */
+        function addItemToCart(id, name, price, image) {
+          const existingItem = cart.find((item) => item.id === id);
+          if (existingItem) {
+            existingItem.quantity++;
+          } else {
+            cart.push({ id, name, price, image, quantity: 1 });
+          }
+          updateCart();
+        }
+
+        /**
+         * Função: Atualizar a quantidade de um item.
+         * Descrição: Altera a quantidade de um item no carrinho. Se a quantidade for 0, remove o item.
+         * @param {string} id - O ID do item a ser atualizado.
+         * @param {number} change - O valor a ser adicionado ou subtraído (1 ou -1).
+         */
+        function updateItemQuantity(id, change) {
+          const item = cart.find((item) => item.id === id);
+          if (!item) return;
+          item.quantity += change;
+          if (item.quantity <= 0) {
+            cart = cart.filter((cartItem) => cartItem.id !== id);
+          }
+          updateCart();
+        }
+
+        /**
+         * Função: Atualizar a interface do carrinho.
+         * Descrição: Orquestra todas as atualizações visuais do carrinho e salva no localStorage.
+         */
+        function updateCart() {
+          renderCartItems();
+          renderSubtotal();
+          updateCartIconCount();
+          localStorage.setItem("shoppingCart", JSON.stringify(cart));
+        }
+
+        /**
+         * Função: Renderizar os itens no modal.
+         * Descrição: Gera o HTML para cada item do carrinho e o insere no modal.
+         */
+        function renderCartItems() {
+          if (cart.length === 0) {
+            cartBody.innerHTML =
+              '<p class="text-center">Seu carrinho está vazio.</p>';
+            return;
+          }
+          cartBody.innerHTML = cart
+            .map(
+              (item) => `
+                    <div class="cart-item" data-id="${item.id}">
+                        <img src="${item.image}" alt="${
+                item.name
+              }" onerror="this.onerror=null;this.src='https://placehold.co/80x80/f4f4f4/ccc?text=Img';">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>R$ ${item.price.toFixed(2)}</p>
+                            <div class="cart-item-actions">
+                                <button class="quantity-decrease">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-increase">+</button>
+                            </div>
+                        </div>
+                    </div>`
+            )
+            .join("");
+        }
+
+        /**
+         * Função: Renderizar o subtotal.
+         * Descrição: Calcula e exibe o valor total dos itens no carrinho.
+         */
+        function renderSubtotal() {
+          const total = cart.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          cartTotal.textContent = `R$ ${total.toFixed(2).replace(".", ",")}`;
+        }
+
+        /**
+         * Função: Atualizar o contador do ícone do carrinho.
+         * Descrição: Mostra a quantidade total de itens no ícone do cabeçalho.
+         */
+        function updateCartIconCount() {
+          const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+          cartItemCount.textContent = totalItems;
+          cartItemCount.style.display = totalItems > 0 ? "block" : "none";
+        }
+
+        // --- INICIALIZAÇÃO ---
+        // Atualiza o carrinho na inicialização para carregar dados do localStorage.
+        updateCart();
+      });
+    </script>
+  </body>
+</html>

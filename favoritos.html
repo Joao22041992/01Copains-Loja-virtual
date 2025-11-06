@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copains - Meus Favoritos</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome para Ícones -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      :root {
+        --primary-color: #ff6f61;
+        --dark-color: #111111;
+        --light-color: #ffffff;
+        --text-color: #333;
+        --gray-light: #f4f4f4;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: var(--gray-light);
+        padding-top: 80px;
+      }
+
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--light-color);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        height: 80px;
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-style: italic;
+      }
+      .nav-link:hover {
+        color: var(--primary-color) !important;
+      }
+
+      .favorite-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .favorite-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      }
+
+      .favorite-card .card-img-top {
+        height: 250px;
+        object-fit: cover;
+      }
+
+      .favorite-icon-card {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Cabeçalho (Header) com Bootstrap -->
+    <header class="header navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand logo" href="pagina inicial.html">Copains</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-links">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Início</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="catalogo_de_produtos.html">Produtos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="favoritos.html">Favoritos</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Sair</a></li>
+          </ul>
+          <div class="d-flex nav-icons align-items-center">
+            <a href="#" class="nav-link me-3"><i class="fas fa-search"></i></a>
+            <a href="#" class="nav-link me-3"><i class="fas fa-user"></i></a>
+            <div
+              class="position-relative"
+              id="cart-icon"
+              style="cursor: pointer"
+            >
+              <i class="fas fa-shopping-cart"></i>
+              <span
+                id="cart-item-count"
+                class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle"
+                style="font-size: 0.75rem; display: none"
+                >0</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container py-5">
+      <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1 class="m-0">Meus Produtos Favoritos</h1>
+        <button id="clear-favorites-btn" class="btn btn-outline-danger d-none">
+          <i class="fas fa-trash-alt me-2"></i>Limpar Tudo
+        </button>
+      </div>
+
+      <div id="favorites-container" class="row g-4">
+        <!-- Os cards de favoritos serão inseridos aqui via JavaScript -->
+      </div>
+    </main>
+
+    <!-- Scripts -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Script principal que já contém a lógica de favoritos -->
+    <script src="main.js" defer></script>
+
+    <!-- Script específico para a página de favoritos -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const favoritesContainer = document.getElementById(
+          "favorites-container"
+        );
+        const clearFavoritesBtn = document.getElementById(
+          "clear-favorites-btn"
+        );
+
+        function renderFavorites() {
+          const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+          if (favorites.length === 0) {
+            clearFavoritesBtn.classList.add("d-none"); // Esconde o botão se não houver favoritos
+            favoritesContainer.innerHTML = `
+                        <div class="col-12 text-center">
+                            <p class="lead">Você ainda não tem produtos favoritos.</p>
+                            <a href="catalogo de produtos.html" class="btn btn-primary">Ver produtos</a>
+                        </div>
+                    `;
+            return;
+          }
+
+          clearFavoritesBtn.classList.remove("d-none"); // Mostra o botão se houver favoritos
+          favoritesContainer.innerHTML = favorites
+            .map(
+              (item) => `
+                    <div class="col-md-4 col-lg-3 favorite-card product-details" 
+                         data-id="${item.id}" 
+                         data-name="${item.name || ""}" 
+                         data-price="${item.price || 0}" 
+                         data-image="${item.image || ""}">
+                        <div class="card h-100">
+                            <div class="favorite-icon favorite-icon-card">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <img src="${
+                              item.image ||
+                              "https://placehold.co/300x250/eee/aaa?text=Img"
+                            }" class="card-img-top" alt="${
+                item.name
+              }" onerror="this.onerror=null;this.src='https://placehold.co/300x250/eee/aaa?text=Img';">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">${item.name}</h5>
+                                <p class="card-text fw-bold text-primary">R$ ${parseFloat(
+                                  item.price
+                                )
+                                  .toFixed(2)
+                                  .replace(".", ",")}</p>
+                                <button class="btn btn-dark mt-auto add-to-cart-btn">Adicionar ao Carrinho</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+            )
+            .join("");
+        }
+
+        // Adiciona o evento de clique para o botão de limpar favoritos
+        clearFavoritesBtn.addEventListener("click", () => {
+          // Pede confirmação ao usuário
+          if (
+            confirm(
+              "Tem certeza que deseja remover todos os seus produtos favoritos?"
+            )
+          ) {
+            // Remove a chave 'favorites' do localStorage
+            localStorage.removeItem("favorites");
+
+            // Atualiza a exibição na página
+            renderFavorites();
+
+            // Atualiza o contador no cabeçalho (função do main.js)
+            if (typeof updateFavorites === "function") {
+              updateFavorites();
+            }
+          }
+        });
+
+        renderFavorites();
+      });
+    </script>
+  </body>
+</html>

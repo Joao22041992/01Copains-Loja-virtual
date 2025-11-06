@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copains - Meu Perfil</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Configuração do Tailwind para manter as cores personalizadas do projeto
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              primary: "#FF6F61", // Vermelho/Coral
+              dark: "#111111",
+              light: "#FFFFFF",
+              text: "#333",
+              "gray-light": "#f4f4f4",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Font Awesome para Ícones -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Estilos customizados -->
+    <style>
+      /* Garante que o conteúdo principal ocupe o espaço necessário para empurrar o rodapé para baixo */
+      .main-content {
+        flex-grow: 1;
+      }
+      /* Efeito de transição para o overlay de carregamento */
+      #loading-overlay {
+        transition: opacity 0.3s ease-in-out;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-gray-light font-sans text-text pt-20 flex flex-col min-h-screen"
+  >
+    <!-- Overlay de Carregamento para simular navegação rápida -->
+    <div
+      id="loading-overlay"
+      class="fixed inset-0 bg-white bg-opacity-75 flex items-center justify-center z-[9999] opacity-0 pointer-events-none"
+    >
+      <div
+        class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary"
+      ></div>
+    </div>
+
+    <!-- ======================= -->
+    <!-- CABEÇALHO (HEADER)      -->
+    <!-- ======================= -->
+    <header
+      class="fixed top-0 left-0 w-full bg-light shadow-md z-50 flex justify-between items-center py-4 px-6 md:px-12 h-20"
+    >
+      <a
+        href="index.html"
+        class="font-bold text-2xl md:text-3xl italic text-dark"
+        >Copains</a
+      >
+      <nav>
+        <ul id="nav-links" class="hidden md:flex gap-6 lg:gap-10">
+          <li>
+            <a
+              href="index.html"
+              class="nav-link font-semibold transition duration-300 hover:text-primary"
+              >Início</a
+            >
+          </li>
+          <li>
+            <a
+              href="area_do_usuario.html"
+              class="nav-link font-semibold transition duration-300 text-primary border-b-2 border-primary"
+              >Perfil</a
+            >
+          </li>
+          <li>
+            <a
+              href="carrinho.html"
+              class="nav-link font-semibold transition duration-300 hover:text-primary"
+              >Carrinho</a
+            >
+          </li>
+          <li>
+            <a
+              href="favoritos.html"
+              class="nav-link font-semibold transition duration-300 hover:text-primary"
+              >Favoritos</a
+            >
+          </li>
+
+          <li>
+            <a
+              href="catalogo_de_produtos.html"
+              class="nav-link font-semibold transition duration-300 hover:text-primary"
+              >Produtos</a
+            >
+          </li>
+
+          <li>
+            <a
+              href="#"
+              data-action="logout"
+              class="nav-link font-semibold transition duration-300 hover:text-primary"
+              >Sair</a
+            >
+          </li>
+        </ul>
+      </nav>
+      <div class="flex items-center gap-6">
+        <div class="hidden md:flex items-center gap-6">
+          <a href="#" class="text-xl transition duration-300 hover:text-primary"
+            ><i class="fas fa-search"></i
+          ></a>
+          <a
+            href="login.html"
+            id="user-account-link"
+            class="nav-link text-xl transition duration-300 hover:text-primary"
+            ><i class="fas fa-user"></i
+          ></a>
+        </div>
+        <div id="cart-icon" class="relative cursor-pointer">
+          <a
+            href="carrinho.html"
+            class="nav-link text-xl transition duration-300 hover:text-primary"
+            ><i class="fas fa-shopping-cart"></i
+          ></a>
+          <span
+            id="cart-item-count"
+            class="absolute top-[-8px] right-[-10px] bg-primary text-light rounded-full px-1.5 text-xs font-bold hidden"
+            >0</span
+          >
+        </div>
+        <button class="md:hidden text-2xl cursor-pointer" id="hamburger-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- ======================= -->
+    <!-- CONTEÚDO PRINCIPAL      -->
+    <!-- ======================= -->
+    <main
+      class="main-content flex items-center justify-center py-8 px-4 md:px-6"
+    >
+      <!-- Cartão do Perfil -->
+      <div
+        class="w-full max-w-lg bg-light p-8 md:p-10 rounded-xl shadow-2xl border border-gray-200"
+      >
+        <!-- Mensagem de Boas-Vindas Dinâmica -->
+        <h1
+          id="welcome-message"
+          class="text-2xl md:text-3xl font-bold text-center text-dark mb-6"
+        >
+          Seja bem-vindo(a)
+          <span class="text-primary" id="display-name"></span>!
+        </h1>
+
+        <div class="flex flex-col items-center mb-8">
+          <!-- Área da Foto de Perfil -->
+          <div
+            class="relative w-32 h-32 rounded-full border-4 border-primary overflow-hidden shadow-lg mb-4"
+          >
+            <img
+              id="profile-pic"
+              src="https://placehold.co/128x128/FF6F61/FFFFFF?text=Foto"
+              alt="Foto do Usuário"
+              class="object-cover w-full h-full"
+            />
+            <!-- Botão de Upload de Foto (overlay) -->
+            <label
+              for="photo-upload"
+              class="absolute inset-0 bg-dark bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-300 cursor-pointer group"
+            >
+              <i
+                class="fas fa-camera text-light text-xl group-hover:scale-110 transition"
+              ></i>
+            </label>
+            <input
+              type="file"
+              id="photo-upload"
+              accept="image/*"
+              class="hidden"
+            />
+          </div>
+          <p class="text-xl font-semibold text-text">Gerenciar Dados</p>
+        </div>
+
+        <form id="profile-form" class="space-y-6">
+          <!-- Campo Nome -->
+          <div>
+            <label for="name" class="block text-sm font-medium text-text mb-1"
+              >Nome Completo:</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              placeholder="Seu nome"
+              class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+            />
+          </div>
+
+          <!-- Campo Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-text mb-1"
+              >Email:</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="seu.email@exemplo.com"
+              class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+            />
+          </div>
+
+          <!-- Campo Telefone -->
+          <div>
+            <label for="phone" class="block text-sm font-medium text-text mb-1"
+              >Telefone:</label
+            >
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="(99) 99999-9999"
+              class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+            />
+          </div>
+
+          <!-- Campos de Alteração de Senha -->
+          <div class="border-t border-gray-200 pt-6 space-y-6">
+            <p class="text-sm text-gray-500 text-center">
+              Deixe os campos abaixo em branco se não desejar alterar sua senha.
+            </p>
+            <div>
+              <label
+                for="new-password"
+                class="block text-sm font-medium text-text mb-1"
+                >Nova Senha:</label
+              >
+              <input
+                type="password"
+                id="new-password"
+                name="new-password"
+                placeholder="Mínimo de 6 caracteres"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+              />
+            </div>
+
+            <div>
+              <label
+                for="confirm-password"
+                class="block text-sm font-medium text-text mb-1"
+                >Confirmar Nova Senha:</label
+              >
+              <input
+                type="password"
+                id="confirm-password"
+                name="confirm-password"
+                placeholder="Repita a nova senha"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+              />
+            </div>
+          </div>
+
+          <!-- Mensagem de Status (sucesso/erro ao salvar) -->
+          <div
+            id="status-message"
+            class="p-3 rounded-lg text-center font-medium hidden"
+            role="alert"
+          >
+            <!-- A mensagem de sucesso/erro será injetada aqui pelo JS -->
+          </div>
+
+          <!-- Botão de Salvar -->
+          <button
+            type="submit"
+            id="save-button"
+            class="w-full px-8 py-3 rounded-lg font-bold text-light bg-primary transition duration-300 hover:bg-dark shadow-md hover:shadow-lg"
+          >
+            <i class="fas fa-save mr-2"></i> Salvar Alterações
+          </button>
+
+          <!-- Botão de Sair -->
+          <a
+            href="index.html"
+            id="logout-button"
+            class="block text-center w-full mt-4 px-8 py-3 rounded-lg font-bold text-white bg-red-500 transition duration-300 hover:bg-red-600 shadow-md hover:shadow-lg"
+          >
+            <i class="fas fa-sign-out-alt mr-2"></i> Sair
+          </a>
+        </form>
+      </div>
+    </main>
+
+    <!-- ======================= -->
+    <!-- RODAPÉ (FOOTER)         -->
+    <!-- ======================= -->
+    <footer class="bg-dark text-gray-200 py-16 mt-auto">
+      <div class="container mx-auto px-4">
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 border-b border-gray-700"
+        >
+          <div class="space-y-4">
+            <h4 class="text-light text-xl font-bold">Categorias</h4>
+            <ul>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Novidades</a
+                >
+              </li>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Promoções</a
+                >
+              </li>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Calças</a
+                >
+              </li>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Casacos</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="space-y-4">
+            <h4 class="text-light text-xl font-bold">Links Úteis</h4>
+            <ul>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Sobre Nós</a
+                >
+              </li>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary">FAQ</a>
+              </li>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Política de Privacidade</a
+                >
+              </li>
+              <li>
+                <a href="#" class="transition-colors hover:text-primary"
+                  >Termos de Serviço</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="space-y-4">
+            <h4 class="text-light text-xl font-bold">Fique Conectado</h4>
+            <div class="flex gap-4">
+              <a href="#" class="text-2xl transition-colors hover:text-primary"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" class="text-2xl transition-colors hover:text-primary"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" class="text-2xl transition-colors hover:text-primary"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="text-center pt-8 text-gray-400 text-sm">
+          <p>&copy; 2024 Copains. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ======================= -->
+    <!-- SCRIPT DA PÁGINA        -->
+    <!-- ======================= -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // =======================================================================
+        // 1. SELETORES DE ELEMENTOS E CONSTANTES
+        // =======================================================================
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const phoneInput = document.getElementById("phone");
+        const newPasswordInput = document.getElementById("new-password");
+        const confirmPasswordInput =
+          document.getElementById("confirm-password");
+        const displayName = document.getElementById("display-name");
+        const profileForm = document.getElementById("profile-form");
+        const statusMessage = document.getElementById("status-message");
+        const photoUpload = document.getElementById("photo-upload");
+        const profilePic = document.getElementById("profile-pic");
+        const hamburgerBtn = document.getElementById("hamburger-btn");
+        const navLinks = document.getElementById("nav-links");
+        const loadingOverlay = document.getElementById("loading-overlay");
+        const logoutButton = document.getElementById("logout-button");
+
+        // CHAVES DO LOCALSTORAGE
+        const ALL_USERS_KEY = "registeredUsers"; // Chave para a lista de todos os usuários
+        const LOGGED_IN_USER_EMAIL_KEY = "loggedInUserEmail"; // Chave para o e-mail do usuário logado
+
+        const DEFAULT_NAME = "Usuário";
+        const DEFAULT_PHOTO_URL =
+          "https://placehold.co/128x128/FF6F61/FFFFFF?text=Foto";
+        // =======================================================================
+        // 2. FUNÇÕES DE DADOS (CARREGAR E SALVAR)
+        // =======================================================================
+
+        /**
+         * Carrega os dados do perfil do localStorage.
+         * @returns {object} O objeto do perfil salvo ou um objeto vazio.
+         */
+        function loadProfile() {
+          try {
+            const loggedInEmail = localStorage.getItem(
+              LOGGED_IN_USER_EMAIL_KEY
+            );
+            if (!loggedInEmail) return {}; // Se não há e-mail, não há perfil para carregar
+
+            const allUsers =
+              JSON.parse(localStorage.getItem(ALL_USERS_KEY)) || [];
+            const userProfile = allUsers.find(
+              (user) => user.email === loggedInEmail
+            );
+
+            return userProfile || {};
+          } catch (e) {
+            console.error("Erro ao carregar perfil do localStorage:", e);
+            return {}; // Retorna um objeto vazio em caso de erro para evitar quebras.
+          }
+        }
+
+        /**
+         * Salva os dados atualizados do perfil no localStorage.
+         * @param {object} data - O objeto do perfil a ser salvo.
+         */
+        function saveProfile(data) {
+          try {
+            const loggedInEmail = localStorage.getItem(
+              LOGGED_IN_USER_EMAIL_KEY
+            );
+            if (!loggedInEmail) return;
+
+            let allUsers =
+              JSON.parse(localStorage.getItem(ALL_USERS_KEY)) || [];
+            const userIndex = allUsers.findIndex(
+              (user) => user.email === loggedInEmail
+            );
+
+            if (userIndex > -1) {
+              // Atualiza o perfil do usuário na lista de todos os usuários
+              allUsers[userIndex] = { ...allUsers[userIndex], ...data };
+              localStorage.setItem(ALL_USERS_KEY, JSON.stringify(allUsers));
+            }
+
+            showStatusMessage("Perfil atualizado com sucesso!", "success");
+          } catch (e) {
+            console.error("Erro ao salvar perfil no localStorage:", e);
+            showStatusMessage(
+              "Erro ao salvar perfil. Tente novamente.",
+              "error"
+            );
+          }
+        }
+
+        // =======================================================================
+        // 3. FUNÇÕES DE INTERFACE (UI)
+        // =======================================================================
+
+        /**
+         * Preenche os campos do formulário com os dados carregados do perfil do usuário logado.
+         */
+        function initializeFields() {
+          const profile = loadProfile();
+
+          // Preenche os campos com os dados do perfil ou com valores vazios
+          nameInput.value = profile.name || "";
+          emailInput.value = profile.email || "";
+          phoneInput.value = profile.phone || "";
+          profilePic.src = profile.photoUrl || DEFAULT_PHOTO_URL;
+
+          // O campo de e-mail não deve ser editável
+          emailInput.setAttribute("readonly", true);
+          emailInput.classList.add("bg-gray-200", "cursor-not-allowed");
+
+          updateWelcomeMessage(profile.name);
+        }
+
+        /**
+         * Atualiza a mensagem de boas-vindas com o nome completo do usuário.
+         * @param {string} name - O nome completo do usuário.
+         */
+        function updateWelcomeMessage(name) {
+          // Verifica se o nome existe e não está vazio. Se sim, usa o nome completo.
+          // Caso contrário, usa o nome padrão 'Usuário'.
+          const fullName =
+            name && name.trim() !== "" ? name.trim() : DEFAULT_NAME;
+          displayName.textContent = fullName;
+        }
+
+        /**
+         * Exibe uma mensagem de status (sucesso ou erro) para o usuário.
+         * @param {string} message - A mensagem a ser exibida.
+         * @param {'success'|'error'} type - O tipo da mensagem para estilização.
+         */
+        function showStatusMessage(message, type) {
+          statusMessage.textContent = message;
+          statusMessage.className = "p-3 rounded-lg text-center font-medium"; // Reseta classes
+
+          if (type === "success") {
+            statusMessage.classList.add("bg-green-100", "text-green-700");
+          } else if (type === "error") {
+            statusMessage.classList.add("bg-red-100", "text-red-700");
+          }
+          statusMessage.classList.remove("hidden");
+
+          // Esconde a mensagem após 5 segundos para não poluir a tela.
+          setTimeout(() => {
+            statusMessage.classList.add("hidden");
+          }, 5000);
+        }
+
+        // =======================================================================
+        // 4. MANIPULADORES DE EVENTOS (EVENT HANDLERS)
+        // =======================================================================
+
+        /**
+         * Manipula o envio do formulário para salvar os dados do perfil.
+         */
+        profileForm.addEventListener("submit", (event) => {
+          event.preventDefault(); // Previne o recarregamento da página.
+
+          const newPassword = newPasswordInput.value;
+          const confirmPassword = confirmPasswordInput.value;
+
+          const updatedProfile = {
+            name: nameInput.value.trim(),
+            email: emailInput.value.trim(),
+            phone: phoneInput.value.trim(),
+            photoUrl: profilePic.src, // Salva a URL da foto (seja a padrão ou a nova).
+          };
+
+          // Lógica para alteração de senha
+          if (newPassword) {
+            if (newPassword.length < 6) {
+              showStatusMessage(
+                "A nova senha deve ter pelo menos 6 caracteres.",
+                "error"
+              );
+              return; // Interrompe o salvamento
+            }
+            if (newPassword !== confirmPassword) {
+              showStatusMessage(
+                "As senhas não coincidem. Tente novamente.",
+                "error"
+              );
+              return; // Interrompe o salvamento
+            }
+            // Se as senhas são válidas e coincidem, adiciona ao objeto a ser salvo
+            updatedProfile.password = newPassword;
+          }
+
+          newPasswordInput.value = "";
+          confirmPasswordInput.value = "";
+
+          saveProfile(updatedProfile);
+          updateWelcomeMessage(updatedProfile.name); // Garante que a mensagem final esteja correta.
+        });
+
+        /**
+         * Manipula a seleção de um novo arquivo de foto.
+         */
+        photoUpload.addEventListener("change", (event) => {
+          const file = event.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              // Atualiza a imagem na tela.
+              profilePic.src = e.target.result;
+
+              // Salva a nova URL da foto (em Base64) no perfil imediatamente.
+              const profile = loadProfile();
+              profile.photoUrl = e.target.result;
+              saveProfile(profile);
+            };
+            // Converte a imagem para Base64 para ser exibida e salva no localStorage.
+            reader.readAsDataURL(file);
+          }
+        });
+
+        /**
+         * Manipula o clique no botão de menu hambúrguer para exibir/ocultar o menu mobile.
+         */
+        hamburgerBtn.addEventListener("click", () => {
+          navLinks.classList.toggle("hidden");
+        });
+
+        /**
+         * Manipula o clique no botão de logout.
+         */
+        logoutButton.addEventListener("click", (e) => {
+          e.preventDefault(); // Previne a navegação imediata do link
+          localStorage.removeItem("isLoggedIn");
+          localStorage.removeItem(LOGGED_IN_USER_EMAIL_KEY);
+          alert("Você saiu da sua conta.");
+          window.location.href = "pagina inicial.html";
+        });
+
+        /**
+         * Adiciona um efeito de "loading" a todos os links de navegação para
+         * simular uma transição de página mais rápida.
+         */
+        document.querySelectorAll(".nav-link").forEach((link) => {
+          link.addEventListener("click", function (e) {
+            const href = this.getAttribute("href");
+            // Ignora links que são apenas âncoras ou ações JS.
+            if (href && href !== "#" && !href.startsWith("javascript:")) {
+              e.preventDefault(); // Impede a navegação imediata.
+              loadingOverlay.classList.remove(
+                "opacity-0",
+                "pointer-events-none"
+              );
+
+              // Aguarda um tempo mínimo para o efeito ser visível (5ms é muito rápido).
+              setTimeout(() => {
+                window.location.href = href;
+              }, 150); // 150ms é um bom valor para a percepção do usuário.
+            }
+          });
+        });
+
+        // =======================================================================
+        // 5. INICIALIZAÇÃO
+        // =======================================================================
+
+        // Verifica se o usuário está logado antes de carregar a página
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        if (!isLoggedIn) {
+          alert("Você precisa estar logado para acessar esta página.");
+          window.location.href = "login.html";
+        } else {
+          // Se estiver logado, carrega as informações do perfil
+          initializeFields();
+        }
+      });
+    </script>
+  </body>
+</html>

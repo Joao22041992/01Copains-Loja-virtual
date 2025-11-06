@@ -1,0 +1,2212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copains - Moda e Estilo</title>
+
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome para Ícones -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      /* ======================= */
+      /* RESET E GLOBAIS         */
+      /* ======================= */
+      :root {
+        --primary-color: #ff6f61;
+        --dark-color: #111111;
+        --light-color: #ffffff;
+        --text-color: #333;
+        --gray-light: #f4f4f4;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        color: var(--text-color);
+        background-color: var(--light-color);
+        /* Adiciona padding no topo para não ficar atrás do header fixo */
+        padding-top: 80px;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      /* ======================= */
+      /* HEADER / NAVEGAÇÃO      */
+      /* ======================= */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--light-color);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        height: 80px;
+      }
+
+      .header .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        font-style: italic;
+        color: var(--dark-color);
+      }
+
+      .header .nav-links {
+        display: flex;
+        gap: 2.5rem;
+      }
+
+      .header .nav-links a {
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .header .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      .header .nav-icons {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .header .nav-icons a {
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+      }
+
+      .header .nav-icons a:hover {
+        color: var(--primary-color);
+      }
+
+      .hamburger {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+
+      /* Estilos para a barra de pesquisa */
+      .search-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .search-input {
+        padding: 0.5rem 1rem 0.5rem 2.5rem; /* Espaço à esquerda para o ícone */
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        width: 250px;
+        transition: width 0.3s ease-in-out;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 1rem;
+        color: #aaa;
+      }
+
+      /* ======================= */
+      /* FILTRO DE PESQUISA      */
+      /* ======================= */
+      .catalog-search-container {
+        position: relative;
+        margin: 0 auto 3rem; /* Centraliza e adiciona margem inferior */
+        max-width: 500px;
+      }
+
+      #catalog-search-input {
+        width: 100%;
+        padding: 0.75rem 1.5rem 0.75rem 3.5rem; /* Espaço para o ícone */
+        border: 1px solid #ddd;
+        border-radius: 30px;
+        font-size: 1rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+
+      .catalog-search-icon {
+        position: absolute;
+        left: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+      }
+
+      /* ======================= */
+      /* SEÇÃO HERO (BANNER)     */
+      /* ======================= */
+      .hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(
+          90vh - 80px
+        ); /* Altura da viewport menos a altura do header */
+        color: var(--light-color);
+        text-align: center;
+        position: relative;
+        background: url("https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop")
+          no-repeat center center/cover;
+      }
+
+      /* Overlay para escurecer a imagem de fundo e melhorar a legibilidade */
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .hero-content {
+        position: relative; /* Para ficar acima do overlay */
+        z-index: 1;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        max-width: 600px;
+      }
+
+      .cta-button {
+        background-color: var(--primary-color);
+        color: var(--light-color);
+        padding: 1rem 2.5rem;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .cta-button:hover {
+        background-color: #e65a50; /* Tom mais escuro do primário */
+        transform: translateY(-3px);
+      }
+
+      /* ======================= */
+      /* CATÁLOGO DE PRODUTOS    */
+      /* ======================= */
+      .product-catalog {
+        padding: 5rem 0;
+      }
+
+      .product-catalog h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: var(--dark-color);
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .product-card {
+        background: var(--light-color);
+        border: 1px solid #eee;
+        border-radius: 8px;
+        overflow: hidden;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        position: relative; /* Para posicionar o ícone de favorito */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-card img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .product-info {
+        padding: 1.5rem;
+      }
+
+      .product-name {
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .product-price {
+        color: var(--text-color);
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .add-to-cart-btn {
+        background-color: var(--dark-color);
+        color: var(--light-color);
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block; /* Garante que a tag <a> ocupe a largura total */
+        width: 100%;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+      }
+
+      .add-to-cart-btn:hover {
+        background-color: var(--primary-color);
+      }
+
+      .buy-now-btn {
+        background-color: #e65a50;
+        color: var(--light-color);
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block; /* Garante que a tag <a> ocupe a largura total */
+        width: 100%;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+        margin-top: 0.5rem;
+      }
+
+      .buy-now-btn:hover {
+        background-color: #d34a40; /* Tom mais escuro */
+      }
+
+      .favorite-icon {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        color: #ccc;
+        transition: color 0.3s ease;
+        z-index: 10;
+      }
+
+      .favorite-icon:hover {
+        color: var(--primary-color);
+        cursor: pointer;
+      }
+
+      /* Estilo para o ícone de favorito ativo */
+      .favorite-icon.favorited i {
+        color: var(--primary-color);
+        font-weight: 900; /* Torna o ícone sólido (fas) */
+      }
+
+      /* ======================= */
+      /* MODAL DO CARRINHO       */
+      /* ======================= */
+      .cart-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .cart-modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .cart-modal {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Começa fora da tela */
+        width: 100%;
+        max-width: 400px;
+        height: 100%;
+        background-color: var(--light-color);
+        z-index: 2000;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.15);
+        transition: right 0.4s ease-in-out;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .cart-modal.active {
+        right: 0;
+      }
+
+      .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        border-bottom: 1px solid #eee;
+      }
+
+      .cart-header h3 {
+        font-size: 1.5rem;
+      }
+
+      .cart-close-btn {
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+      }
+
+      .cart-body {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 1rem;
+      }
+      .cart-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .cart-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-right: 1rem;
+      }
+      .cart-item-info {
+        flex-grow: 1;
+      }
+      .cart-item-info h4 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .cart-item-info p {
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .cart-item-actions {
+        display: flex;
+        align-items: center;
+        margin-top: 0.5rem;
+      }
+      .cart-item-actions button {
+        background: #eee;
+        border: none;
+        padding: 0.3rem 0.6rem;
+        cursor: pointer;
+      }
+      .cart-item-actions span {
+        padding: 0 1rem;
+        font-weight: 700;
+      }
+      .cart-footer {
+        padding: 1.5rem;
+        border-top: 1px solid #eee;
+      }
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+      .checkout-btn {
+        width: 100%;
+      }
+
+      /* ======================= */
+      /* RODAPÉ (FOOTER)         */
+      /* ======================= */
+      .footer {
+        background-color: var(--dark-color);
+        color: var(--gray-light);
+        padding: 4rem 0 2rem;
+        margin-top: 4rem;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-column h4 {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        color: var(--light-color);
+      }
+
+      .footer-column ul li {
+        margin-bottom: 0.75rem;
+      }
+
+      .footer-column ul a {
+        color: #ccc;
+        transition: color 0.3s ease;
+      }
+
+      .footer-column ul a:hover {
+        color: var(--primary-color);
+      }
+
+      .social-icons a {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        color: #ccc;
+        transition: color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: var(--primary-color);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid #444;
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+
+      /* Estilo para os títulos de categoria */
+      .category-title {
+        grid-column: 1 / -1; /* Faz o título ocupar todas as colunas da grade */
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--dark-color);
+      }
+      /* ======================= */
+      /* RESPONSIVIDADE (MEDIA QUERIES) */
+      /* ======================= */
+      @media (max-width: 992px) {
+        .product-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding-top: 70px;
+        }
+        .header {
+          height: 70px;
+          padding: 1rem;
+        }
+        .header .nav-links {
+          position: fixed;
+          top: 70px;
+          left: -100%; /* Começa fora da tela */
+          width: 100%;
+          height: calc(100vh - 70px);
+          background-color: var(--light-color);
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 2rem;
+          transition: left 0.3s ease-in-out;
+        }
+
+        .header .nav-links.active {
+          left: 0; /* Mostra o menu */
+        }
+
+        .header .nav-links a {
+          font-size: 1.5rem;
+        }
+
+        .hamburger {
+          display: block; /* Mostra o ícone do hambúrguer */
+          z-index: 1001; /* Garante que fique acima de outros elementos */
+        }
+
+        /* Esconde a barra de pesquisa em telas menores para dar espaço ao menu */
+        .header .search-container {
+          display: none;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .footer-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .social-icons {
+          text-align: center;
+          margin-top: 1rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .product-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          height: calc(80vh - 70px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ======================= -->
+    <!-- BARRA DE NAVEGAÇÃO      -->
+    <!-- ======================= -->
+    <header class="header">
+      <div class="logo">Copains</div>
+
+      <nav>
+        <ul class="nav-links" id="mobile-menu">
+          <li><a href="index.html">Início</a></li>
+          
+          <li><a href="favoritos.html">Favoritos</a></li>
+          <li><a href="#">Sair</a></li>
+        </ul>
+      </nav>
+
+      <!-- Barra de Pesquisa -->
+      <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Buscar produtos..."
+        />
+      </div>
+
+      <div class="nav-icons">
+        <a
+          href="#"
+          class="cart-icon-wrapper"
+          id="cart-icon"
+          aria-label="Abrir carrinho de compras"
+        >
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-item-count" id="cart-item-count">0</span>
+        </a>
+        <a href="#" aria-label="Conta do usuário"
+          ><i class="fas fa-user"></i
+        ></a>
+      </div>
+
+      <button class="hamburger" id="hamburger-btn" aria-label="Abrir menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </header>
+
+    <main>
+      <!-- =========================== -->
+      <!-- SEÇÃO PRINCIPAL (HERO BANNER) -->
+      <!-- =========================== -->
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Coleção de Verão</h1>
+          <p>Estilo e conforto para os dias mais quentes.</p>
+          <a href="#" class="cta-button">Comprar Agora</a>
+        </div>
+      </section>
+
+      <!-- ======================= -->
+      <!-- SEÇÃO DO CATÁLOGO       -->
+      <!-- ======================= -->
+      <section class="product-catalog container">
+        <h2>Nosso Catálogo</h2>
+        <!-- Barra de Pesquisa do Catálogo -->
+        <div class="catalog-search-container">
+          <i class="fas fa-search catalog-search-icon"></i>
+          <input
+            type="text"
+            id="catalog-search-input"
+            placeholder="Pesquisar no catálogo..."
+          />
+        </div>
+
+        <div class="product-grid">
+         
+          <!-- Título da Categoria Hidratantes -->
+          <h3 class="category-title">Hidratantes</h3>
+          
+          <!-- Produto 01 Hidratante 212 rose-->
+          <div
+            class="product-card"
+            data-id="prod-cat-002"
+            data-name="Hidratante 212 Vip Rose"
+            data-price="75.50"
+            data-image="http://127.0.0.1:3000/Hidratante 212 vip rose ore tou on....html?serverWindowId=dc9a0852-389e-4594-a18e-4bda98c838f2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="hidratante 212 vip rose.jpg" alt="Imagem do Produto 2" />
+            <div class="product-info">
+              <h3 class="product-name">Hidratante 212 Vip Rose</h3>
+              <p class="product-price">R$ 75,50</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="hidratante_212_vip_rose_are_tou_on.html"
+                class="buy-now-btn"
+                >Comprar</a
+              >
+            </div>
+          </div>
+
+           
+          <!-- Produto 02 Hidratante Vitória Secret-->
+          <div
+            class="product-card"
+            data-id="prod-cat-003"
+            data-name="Nome do Produto 3"
+            data-price="120.00"
+            data-image="http://127.0.0.1:3000/Hidratante Vitória Secret.html?serverWindowId=dc9a0852-389e-4594-a18e-4bda98c838f2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="Victoria's Secret Velvet Petals.jpg"
+              alt="Imagem do Produto 3"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Hidratante Vitoria Secret</h3>
+              <p class="product-price">R$ 70,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="Hidratante_Vitória_Secret.html"
+                class="buy-now-btn"
+                >Comprar</a
+              >
+            </div>
+          </div>
+         
+          
+          <!-- Título da Categoria Perfumes -->
+          <h3 class="category-title">Perfumes</h3>
+          <!-- Produto 03 Good girl contra tipo -->
+          <div
+            class="product-card"
+            data-id="prod-cat-001"
+            data-name="perfume good girl contra tipom "
+            data-price="99.90"
+            data-image="https://placehold.co/400x300/a3e635/1c1917?text=Produto+1"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="perfume good girl contra tipo.jpg"
+              alt="Imagem do Produto 1"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Perfume Good Girl Carolina Errera</h3>
+              <p class="product-price">R$ 524,50</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="perfumeGood_Girl_Carolina_Herr.html"
+                class="buy-now-btn"
+                >Comprar</a
+              >
+            </div>
+          </div>
+
+
+          <!-- Produto 04 -perfume Olympea Legitimo-->
+          <div
+            class="product-card"
+            data-id="prod-new-009"
+            data-name="Olympea"
+            data-price="525.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Olympea"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="Olympia paco rabane legitimo.jpg" alt="Perfume Olympea" />
+            <div class="product-info">
+              <h3 class="product-name">Olympea</h3>
+              <p class="product-price">R$ 525,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="Perfume_olimpea_paco_rabane.html"
+                class="buy-now-btn"
+                >Comprar</a
+              >
+            </div>
+          </div>
+         
+          
+          <!-- Produto ,05 - Ferrari Black -->
+          <div
+            class="product-card"
+            data-id="prod-new-012"
+            data-name="Ferrari Black"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Ferrari+Black"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="perfume ferrare black contratipo.jpg"
+              alt="Ferrari Black"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Ferrari Black</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="Perfume_Ferrari_Black.html" class="buy-now-btn nav-link"
+                >Comprar</a
+              >
+            </div>
+          </div>
+          <!-- Produto 06 - AB THE SECRET -->
+          <div
+            class="product-card"
+            data-id="prod-new-013"
+            data-name="AB THE SECRET"
+            data-price="250.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=AB+THE+SECRET"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="perfume Antonio Bandeiras the secret legitimo.jpg"
+              alt="AB THE SECRET"
+            />
+            <div class="product-info">
+              <h3 class="product-name">AB THE SECRET</h3>
+              <p class="product-price">R$ 250,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="Perfume_AB_The_Secret.html" class="buy-now-btn nav-link"
+                >Comprar</a
+              >
+            </div>
+          </div>
+
+
+          <!-- Produto 07 one milli parfun -->
+          <div
+            class="product-card"
+            data-id="prod-cat-004"
+            data-name="Nome do Produto 4"
+            data-price="55.00"
+            data-image="https://placehold.co/400x300/93c5fd/1c1917?text=Produto+4"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="perfume 1 million parfum legitimo.jpg"
+              alt="Imagem do Produto 4"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Perfume One Million Parfum legitimo</h3>
+              <p class="product-price">R$ 524,50</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="one_milli_parfum.html" class="buy-now-btn nav-link"
+                >Comprar</a
+              >
+            </div>
+          </div>
+
+          <!-- Produto 08 - Perfume Bad Boy -->
+          <div
+            class="product-card"
+            data-id="prod-new-017"
+            data-name=" Perfume Bad Boy"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Bad+Boy"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="Perfume Bad Boy Carolina Errera.jpg" alt="Bad Boy" />
+            <div class="product-info">
+              <h3 class="product-name">Perfume Bad Boy</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="Perfume Bad Boy Carolina Errera.html" class="buy-now-btn"
+                >Comprar</a
+              
+              >
+            </div>
+          </div>
+          <!-- Produto 09 -perfume yara latafa -->
+          <div
+            class="product-card"
+            data-id="prod-new-018"
+            data-name="Perfume Yara latafa"
+            data-price="60.00"
+            data-image="Perfume Yare lattafa.jpg"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="perfume yare latafa.jpg" alt="Perfume Yara lattafa" />
+            <div class="product-info">
+              <h3 class="product-name">Perfume Yara lattafa</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="http://127.0.0.1:3000/perfume Yara Lattafa 50ml.html?serverWindowId=0e482ef1-fe8e-438b-83f7-962d569f71bd"
+                class="buy-now-btn"
+                >Comprar</a>
+              
+              
+            </div>
+          </div>
+          <!-- Produto 10 - Perfume Invictus Parfum -->
+          <div
+            class="product-card"
+            data-id="prod-new-019"
+            data-name="Lily"
+            data-price="70.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Lily+Boticario"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="Perfume invictus parfum.jpg"
+              alt="Perfume Invictus Parfum"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Perfume Invictus Parfum</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="http://127.0.0.1:3000/Perfume Invictus Parfum.html?serverWindowId=675cc478-6259-4072-8414-eab7c7bf77e5" class="buy-now-btn"
+                >Comprar</a>
+              
+              
+            </div>
+          </div>
+          <!-- Produto 11 - 212 Men Vip Wins-->
+          <div
+            class="product-card"
+            data-id="prod-new-020"
+            data-name="212 Men"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=212+Men"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="Perfume 212 Mem vip wins.jpg" alt="212 Men" />
+            <div class="product-info">
+              <h3 class="product-name">Perfume 212 Vip Men wins</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="http://127.0.0.1:3000/Perfume 212 Men VIP Wins Contra Tipo.html?serverWindowId=b2cbe4a9-022d-482d-8012-684fbfe7208e" class="buy-now-btn"
+                >Comprar</a>
+              
+              
+            </div>
+          </div>
+          <!-- Produto 12 - Sauvage Dior -->
+          <div
+            class="product-card"
+            data-id="prod-sauvage-dior"
+            data-name="Perfume Sauvage Dior"
+            data-price="60.00"
+            data-image="1000015818.jpg"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="perfume sauvage contra tipo.jpg"
+              alt="Perfume Sauvage Dior"
+              onerror="this.onerror=null;this.src='https://placehold.co/400x300/2c3e50/ffffff?text=Sauvage';"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Perfume Sauvage Dior</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="perfume Sauvage Dior 50ml.html" class="buy-now-btn"
+                >Comprar</a
+             
+              >
+            </div>
+          </div>
+          <!-- Produto 13 perfume Lattafa Fakhar                 -->
+          <div
+            class="product-card"
+            data-id="prod-cat-002"
+            data-name="Perfume Lattafa Fakhar 50mld"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/fde047/1c1917?text=Produto+2"
+            >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="Perfume Latafa Fakhar.jpg" alt="Imagem do Produto 2" />
+            <div class="product-info">
+              <h3 class="product-name">
+                Perfume Lattafa Fakhar Contra Tipo 50ml
+              </h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="http://127.0.0.1:3000/perfume Lattafa Fakhar 50ml.html?serverWindowId=aaac4387-9ce2-4068-a917-c2a555d028f5" class="buy-now-btn"
+                >Comprar</a               
+              
+              >
+            </div>
+          </div>
+          <!-- Produto 14 Perfume Dolce & Gabbana Pour  -->
+          <div
+            class="product-card"
+            data-id="prod-cat-002"
+            data-name="Perfume Dolce & Gabbana Pour"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/fde047/1c1917?text=Produto+2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="Dolce & Gabbana.jpg" alt="Imagem do Produto 2" />
+            <div class="product-info">
+              <h3 class="product-name">Perfume Dolce & Gabbana Pour</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="http://127.0.0.1:3000/perfume Dolce & Gabbana Pour ... .html?serverWindowId=8dd4693a-64b0-4a19-8e4c-006de536e00f"
+                class="buy-now-btn"
+                >Comprar</a>
+              
+              
+            </div>
+          </div>
+          <!-- Produto 15   Perfume Azzaro Pour Homme Wante Contra Tipo 50ml               -->
+          <div
+            class="product-card"
+            data-id="prod-cat-002"
+            data-name="c
+"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/fde047/1c1917?text=Produto+2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="Perfume Azzaro POUR HOMME contra tipo.jpg"
+              alt="Imagem do Produto 2"
+            />
+            <div class="product-info">
+              <h3 class="product-name">
+                Perfume Azzaro Pour Homme Wante Contra Tipo 50ml
+              </h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="http://127.0.0.1:3000/perfume Azzaro Wanted 50ml .html?serverWindowId=b68d63aa-c1ce-4c17-9af9-236132b017b8"
+                class="buy-now-btn"
+                >Comprar</a>
+              
+            </div>
+          </div>
+          <!-- Produto 16 perfume scuderia ferrare contratipo 50ml               -->
+          <div
+            class="product-card"
+            data-id="prod-cat-002"
+            data-name="c
+"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/fde047/1c1917?text=Produto+2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="perfume scuderia ferrare contratipo.jpg"
+              alt="Imagem do Produto 2"
+            />
+            <div class="product-info">
+              <h3 class="product-name">
+                Perfume Scuderia Ferrare Contra Tipo 50ml
+              </h3>
+              <p class="product-price">R$ 535,50</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="http://127.0.0.1:3000/Perfume Azzaro Pour Homme Wante Contra Tipo 50ml.html?serverWindowId=b2cbe4a9-022d-482d-8012-684fbfe7208e" class="buy-now-btn"
+                >Comprar</a>
+              
+            </div>
+          </div>
+          <!-- Produto 17 Perfume Scandal Jean paul          -->
+          <div
+            class="product-card"
+            data-id="prod-cat-002"
+            data-name="c
+"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/fde047/1c1917?text=Produto+2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="perfume Scandal Jean Paul.jpg"
+              alt="Imagem do Produto 2"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Perfume Scandal Jean Paul</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="http://127.0.0.1:3000/scandal jeanspaul.html?serverWindowId=0e482ef1-fe8e-438b-83f7-962d569f71bd"
+                class="buy-now-btn"
+                >Comprar</a>
+              
+              
+            </div>
+          </div>
+          <!-- Produto 18 Perfume CK One Contra Tipo         -->
+          <div
+            class="product-card"
+            data-id="prod-cat-002"
+            data-name="
+Perfume CK One Contra Tipo"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/fde047/1c1917?text=Produto+2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="perfume ck one contra tipo.jpg"
+              alt="Imagem do Produto 2"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Perfume CK One Contra Tipo</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="http://127.0.0.1:3000/Perfume CK One Contratipo .html?serverWindowId=555a224d-7811-4ddf-a104-e85617de90e5" class="buy-now-btn"
+                >Comprar</a>
+              
+              
+            </div>
+          </div>
+
+          <!-- Produto 19 perfume 1 millio luck contratipo       -->
+          <div
+            class="product-card"
+            data-id="prod-cat-002"
+            data-name="c
+"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/fde047/1c1917?text=Produto+2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="perfume 1 millio luck contratipo.jpg"
+              alt="Imagem do Produto 2"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Perfume 1 Milion Luck Contra Tipo</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="http://127.0.0.1:3000/perfume 1 milio luck  Contra Tipo.html?serverWindowId=2aab2f2d-a938-4af4-8651-8445dbe36315" class="buy-now-btn"
+                >Comprar</a>
+              
+              
+            </div>
+          </div>
+          <!-- Produto 20 Perfume Aqua di Gio ContraTipo               -->
+          <div
+            class="product-card"
+            data-id="prod-cat-002"
+            data-name="c
+"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/fde047/1c1917?text=Produto+2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="perfume aqua di gio contra tipo.jpg"
+              alt="Imagem do Produto 2"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Perfume ACQUA DI Giò contra tipo</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="http://127.0.0.1:3000/Perfume Aqua di Gio ContraTipo.html?serverWindowId=0498fd7d-aac2-41ee-a561-e4f20bc4fcbc" class="buy-now-btn"
+                >Comprar</a>               
+              
+            </div>
+          </div>
+          <!-- Produto 21 Chloè EAU de Parfum Contra tipo                -->
+          <div
+            class="product-card"
+            data-id="prod-cat-002"
+            data-name="c
+"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/fde047/1c1917?text=Produto+2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="perfume cloé contratipo.jpg" alt="Imagem do Produto 2" />
+            <div class="product-info">
+              <h3 class="product-name">Chloè EAU de Parfum Contra tipo</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="http://127.0.0.1:3000/Perfume Chloé Contratipo.html?serverWindowId=6ca715a3-9af0-4846-b9ac-fc2955312f17" class="buy-now-btn"
+                >Comprar</a               
+              >
+            </div>
+          </div>
+          <!-- Produto 22 Perfume Invictus legende -->
+          <div
+            class="product-card"
+            data-id="prod-cat-002"
+            data-name="c
+"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/fde047/1c1917?text=Produto+2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="perfume invictus legende.jpg" alt="Imagem do Produto 2" />
+            <div class="product-info">
+              <h3 class="product-name">Perfume Invictus legende</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="http://127.0.0.1:3000/Perfume Invictus Legend Paco Contratipo.html?serverWindowId=181e9290-2a35-43dc-aa95-77ab219053b3" class="buy-now-btn"
+                >Comprar</a>
+              
+            </div>
+          </div>
+          <!-- Produto 23 perfume 212 MEN NYC legitimo              -->
+          <div
+            class="product-card"
+            data-id="prod-cat-002"
+            data-name="c
+"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/fde047/1c1917?text=Produto+2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="Perfume 212 MEN NYC.jpg"
+              alt="Imagem do Produto 2"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Perfume 212 Men NYC</h3>
+              <p class="product-price">R$ 565,80</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="Perfume_212_Men_NYC_200ml_legitimo.html" class="buy-now-btn"
+                >Comprar</a>
+              
+            </div>
+          </div>
+          <!-- Produto 24 Perfume CK One Legitimo-->
+          <div
+            class="product-card"
+            data-id="prod-cat-005"
+            data-name="Nome do Produto 5"
+            data-price="80.00"
+            data-image="https://placehold.co/400x300/e879f9/1c1917?text=Produto+5"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="perfume CK one legitimo.jpg" alt="Imagem do Produto 5" />
+            <div class="product-info">
+              <h3 class="product-name">Perfume CK One Legitimo</h3>
+              <p class="product-price">R$ 390,90</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="CK One 200ml.html"
+                class="buy-now-btn"
+                >Comprar</a
+              >
+            </div>
+          </div>
+          <!-- Perfume 25 angel contra tipo-->
+          <div
+            class="product-card"
+            data-id="prod-cat-006"
+            data-name="Nome do Produto 6"
+            data-price="105.50"
+            data-image="https://placehold.co/400x300/c7d2fe/1c1917?text=Produto+6"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <h3 class="product-name"></h3>
+            <img src="perfume angel contratipo.jpg" alt="Imagem do Produto 6" />
+            <div class="product-info">
+              <h3 class="product-name">Perfume Angel Contra Tipo</h3>
+              <p class="product-price">R$60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="fume_angel_contra_tipo.html"
+                class="buy-now-btn"
+                >Comprar</a               
+              
+              >
+            </div>
+          </div>
+          <!-- Produto 26 one million royal-->
+          <div
+            class="product-card"
+            data-id="prod-cat-007"
+            data-name="Nome do Produto 7"
+            data-price="25.00"
+            data-image="https://placehold.co/400x300/4ade80/1c1917?text=Produto+7"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="Perfume_1_Miller_Royal.jpg" alt="Imagem do Produto 7" />
+            <div class="product-info">
+              <h3 class="product-name">Perfume One-million-royal</h3>
+              <p class="product-price">R$ 548,60</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="one_million_royale.html" class="buy-now-btn nav-link"
+                >Comprar</a
+              >
+            </div>
+          </div>
+          <!-- Produto 27 perfume 212 Men Carolina -->
+          <div
+            class="product-card"
+            data-id="prod-cat-008"
+            data-name="Nome do Produto 8"
+            data-price="199.90"
+            data-image="212 Men Carolina Herrera.jpg"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="212 Men Carolina Herrera.jpg"
+              alt="Imagem do Produto 8"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Perfume 212 MEN</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="Perfume_212Men_Carolina_Errera.html"
+                class="buy-now-btn"
+                >Comprar</a
+              >
+            </div>
+          </div>
+          <!-- Produto 28 - For me blue seduction -->
+          <div
+            class="product-card"
+            data-id="prod-new-001"
+            data-name="For Mem blue Seduction"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=For+me+blue+seduction"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="perfume for men blue seduction contratipo.jpg"
+              alt="Perfume For me blue seduction"
+            />
+            <div class="product-info">
+              <h3 class="product-name">For Mem Blue Seduction</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="Perfume_For_Mem_BlueSeduction.html"
+                class="buy-now-btn"
+                >Comprar</a
+              >
+            </div>
+          </div>
+          <!-- Produto 29 - Azzaro Wanted -->
+          <div
+            class="product-card"
+            data-id="prod-new-002"
+            data-name="Azzaro Wanted"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Azzaro+Wanted"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="perfume azarro wanted contra tipo.jpg"
+              alt="Perfume Azzaro Wanted"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Azzaro Wanted-Contra tipo</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="perfume_Azzaro_Wanted_50ml.html"
+                class="buy-now-btn nav-link"
+                >Comprar</a
+              >
+            </div>
+          </div>
+         
+
+          <!-- Produto 30 - Flower by kenzo Contra tipo -->
+          <div
+            class="product-card"
+            data-id="prod-new-004"
+            data-name="Flower by kenzo"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Flower+by+kenzo"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="flouer by kenzo contra tipo.jpg"
+              alt="Perfume Flower by kenzo"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Flower by kenzo-contra tipo</h3>
+              <p class="product-price">R$ 60,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="Perfume_Flower_be_Kenzo_-Kenzo.html"
+                class="buy-now-btn"
+                >Comprar</a
+              >
+            </div>
+          </div>
+        
+            <!-- Título da Categoria Relógios e Acessórios -->
+          <h3 class="category-title">Tênis</h3>
+          
+          <!-- Produto 31 - Air force branco, preto e preto -->
+          <div
+            class="product-card"
+            data-id="prod-new-006"
+            data-name="Air force"
+            data-price="150.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Air+force+branco+e+preto"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="Tênis Preto e Braco.jpg" alt="Air force" />
+            <div class="product-info">
+              <h3 class="product-name">Air force</h3>
+              <p class="product-price">R$ 150,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="Tênis_AIR_force_Branco_Preto.html"
+                class="buy-now-btn"
+                >Comprar</a
+              >
+            </div>
+          </div>
+          <!-- Produto 32 - Air force branco e cinza -->
+          <div
+            class="product-card"
+            data-id="prod-new-007"
+            data-name="Air force"
+            data-price="150.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Air+force+branco+e+cinza"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="tênis branco e ciza.jpg" alt="Air force" />
+            <div class="product-info">
+              <h3 class="product-name">Air force</h3>
+              <p class="product-price">R$ 150,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="Tênis_Branco_e_cinza.html" class="buy-now-btn nav-link"
+                >Comprar</a
+              >
+            </div>
+          </div>
+
+        
+          <!-- Produto 33 - Air force branco com rosa -->
+          <div
+            class="product-card"
+            data-id="prod-new-008"
+            data-name="Air force"
+            data-price="150.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Air+force+branco+com+rosa"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="Tênis  brnco e rosa.jpg" alt="Air force" />
+            <div class="product-info">
+              <h3 class="product-name">Air force</h3>
+              <p class="product-price">R$ 150,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="Tênis_Air_for_branco_e_cinza.html" class="buy-now-btn">Comprar</a>
+              
+            </div>
+          </div>
+
+          <!-- Produto 34 - Air Force Marrom -->
+          <div
+            class="product-card"
+            data-id="prod-new-011"
+            data-name="Air Force"
+            data-price="150.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Air+Force+Marrom"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="Tênis marrom.jpg" alt="Air Force Marrom" />
+            <div class="product-info">
+              <h3 class="product-name">Air Force</h3>
+              <p class="product-price">R$ 150,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="tênis_marron.html" class="buy-now-btn nav-link"
+                >Comprar</a
+              >
+            </div>
+          </div>
+          
+ <!-- Título da Categoria Relógios e Acessórios -->
+          <h3 class="category-title">Relógios e Acessórios</h3>
+           <!-- Produto 35 - Smart watch 8 Pro -->
+          <div
+            class="product-card"
+            data-id="prod-new-003"
+            data-name="Smart watch 8 Pro"
+            data-price="135.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Smart+watch+8+Pro"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="Relógio Smart Watch 9 plus 1 - Copia.jpg"
+              alt="Smart watch 9 Pro"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Smart watch 9 Pro</h3>
+              <p class="product-price">R$ 135,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="Relogio_Smart_Watch_8_Pro.html"
+                class="buy-now-btn"
+                >Comprar</a
+              >
+            </div>
+          </div>
+
+          <!-- Produto 36 - Microwear RUN2 -->
+          <div
+            class="product-card"
+            data-id="prod-new-014"
+            data-name="Microwear RUN2"
+            data-price="200.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Microwear+RUN2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="Relogio microwear Run2.jpg" alt="Microwear RUN2" />
+            <div class="product-info">
+              <h3 class="product-name">Microwear RUN2</h3>
+              <p class="product-price">R$ 200,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="Relogio_micro_Rum.html" class="buy-now-btn nav-link"
+                >Comprar</a
+              >
+            </div>
+          </div>
+          <!-- Produto 37 - Smart watch ultra 9 plus -->
+          <div
+            class="product-card"
+            data-id="prod-new-015"
+            data-name="Smart watch ultra 9 plus"
+            data-price="170.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Smart+watch+ultra+9+plus"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="Relogio microwear ultra 9.jpg"
+              alt="Smart watch ultra 9 plus"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Smart watch ultra 9 plus</h3>
+              <p class="product-price">R$ 170,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="http://127.0.0.1:3000/Relógio Smart Watch 9 Plus.html?serverWindowId=bd60daf4-835e-4879-ad0b-d19f5d2f1500"
+                class="buy-now-btn"
+                >Comprar</a
+              >
+            </div>
+          </div>
+
+
+          <!-- Produto 38 Relógio Micrower ultramani               -->
+          <div 
+            class="product-card"
+            data-id="prod-cat-002"
+            data-name="c
+"
+            data-price="60.00"
+            data-image="https://placehold.co/400x300/fde047/1c1917?text=Produto+2"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="Relogio microwear ultramani200.jpg"
+              alt="Imagem do Produto 2"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Relogio microwear ultramani</h3>
+              <p class="product-price">R$ 190,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="http://127.0.0.1:3000/relogio microwear ultramani200.html?serverWindowId=b612593a-9c0b-4861-8795-eb3beacaf701"
+                class="buy-now-btn"
+                >Comprar</a>
+              </div>
+              </div>
+  
+              <!-- Produto 39 - Relógio W69 ultra -->
+          <div
+            class="product-card"
+            data-id="prod-new-005"
+            data-name="W69 ultra"
+            data-price="180.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=W69+ultra"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="Relógio w69 utra.jpg" alt="W69 ultra" />
+            <div class="product-info">
+              <h3 class="product-name">W69 ultra</h3>
+              <p class="product-price">R$ 180,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="Relogio_W69_Ultra.html" class="buy-now-btn nav-link"
+                >Comprar</a
+              >
+            </div>
+          </div>
+              <!-- Produto 40 - pulcera lisa-->
+          <div
+            class="product-card"
+            data-id="prod-new-010"
+            data-name="One Million Royal"
+            data-price="548.60"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=One+Million+Royal"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img src="pulcera lisa.jpg" alt="Pulcera lisa" />
+            <div class="product-info">
+              <h3 class="product-name">Pulcera lisa</h3>
+              <p class="product-price">R$ 15,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a
+                href="Pulceira_para_relogio.html"
+                class="buy-now-btn"
+                >Comprar</a
+              >
+            </div>
+          </div>
+
+
+          <!-- Produto 41 - Smart watch ultra gold 24k -->
+          <div
+            class="product-card"
+            data-id="prod-new-016"
+            data-name="Smart watch ultra gold 24k"
+            data-price="180.00"
+            data-image="https://placehold.co/400x300/e5e7eb/4b5563?text=Smart+watch+ultra+gold"
+          >
+            <a
+              href="#"
+              class="favorite-icon"
+              aria-label="Adicionar aos Favoritos"
+              ><i class="far fa-heart"></i
+            ></a>
+            <img
+              src="relógio ultra mini gold smart watch.jpg"
+              alt="Smart watch ultra gold"
+            />
+            <div class="product-info">
+              <h3 class="product-name">Smart watch ultra gold 24k</h3>
+              <p class="product-price">R$ 180,00</p>
+              <a href="#" class="add-to-cart-btn">Adicionar ao Carrinho</a>
+              <a href="Relogio_ultra_Gold_24k.html" class="buy-now-btn nav-link"
+                >Comprar</a
+              >
+            </div>
+          </div>
+
+
+          
+          
+                             
+              
+          
+
+
+         
+        </div>
+      </section>
+    </main>
+
+    <!-- ======================= -->
+    <!-- RODAPÉ (FOOTER)         -->
+    <!-- ======================= -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-column">
+            <h4>Categorias</h4>
+            <ul class="list-unstyled">
+             <ul class="list-unstyled">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="catalogo_de_produtos.html">Produtos</a></li>
+              <li><a href="carrinho.html">Carrinho</a></li>
+              <li><a href="#"></a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Links Úteis</h4>
+            <ul class="list-unstyled">
+              <li><a href="#">Sobre Nós</a></li>
+              <li><a href="FAQ.html">FAQ</a></li>
+              <li><a href="Politicas_de_privacidade.html">Política de Privacidade</a></li>
+              <li><a href="Termos_de_Uso.html">Termos de Serviço</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Fique Conectado</h4>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/Copains Pv"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/Copains.pv"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://wa.me/552198092293"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="mb-0">&copy; 2024 Copains. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer> 
+        <div class="footer-bottom">
+          <p>&copy; 2024 Copains. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ======================= -->
+    <!-- MODAL DO CARRINHO       -->
+    <!-- ======================= -->
+    <div class="cart-modal-overlay" id="cart-modal-overlay">
+      <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+          <h3>Meu Carrinho</h3>
+          <button class="cart-close-btn" id="cart-close-btn">&times;</button>
+        </div>
+        <div class="cart-body" id="cart-body">
+          <!-- Itens do carrinho serão inseridos aqui via JS -->
+        </div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>Total:</span>
+            <span id="cart-total">R$ 0,00</span>
+          </div>
+          <button class="cta-button checkout-btn">Finalizar Compra</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // ===========================
+        // SELETORES DE ELEMENTOS DOM
+        // ===========================
+        const hamburgerBtn = document.getElementById("hamburger-btn");
+        const navLinks = document.querySelector(".nav-links");
+        const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+        const cartIcon = document.getElementById("cart-icon");
+        const cartModalOverlay = document.getElementById("cart-modal-overlay");
+        const cartModal = document.getElementById("cart-modal");
+        const cartCloseBtn = document.getElementById("cart-close-btn");
+        const cartBody = document.getElementById("cart-body");
+        const cartItemCount = document.getElementById("cart-item-count");
+        const cartTotal = document.getElementById("cart-total");
+        const searchInput = document.getElementById("catalog-search-input");
+        const productGrid = document.querySelector(".product-grid");
+
+        // ======================= -->
+        // ESTADO DA APLICAÇÃO
+        // ======================= -->
+        // Carrega o carrinho do localStorage ou inicializa um array vazio.
+        let cart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
+
+        // ======================= -->
+        // EVENT LISTENERS
+        // ======================= -->
+        // Evento para o menu hambúrguer.
+        hamburgerBtn.addEventListener("click", () =>
+          navLinks.classList.toggle("active")
+        );
+
+        // Eventos para abrir e fechar o modal do carrinho.
+        cartIcon.addEventListener("click", toggleCartModal);
+        cartCloseBtn.addEventListener("click", toggleCartModal);
+        cartModalOverlay.addEventListener("click", (e) => {
+          if (e.target === cartModalOverlay) {
+            toggleCartModal();
+          }
+        });
+
+        // Adiciona evento de clique para cada botão "Adicionar ao Carrinho".
+        addToCartButtons.forEach((button) => {
+          button.addEventListener("click", (e) => {
+            e.preventDefault(); // Impede a ação padrão do link
+            const card = e.target.closest(".product-card[data-id]");
+            const id = card.dataset.id;
+            const name = card.dataset.name;
+            const price = parseFloat(card.dataset.price);
+            const image = card.dataset.image;
+            addItemToCart(id, name, price, image);
+          });
+        });
+
+        // Delegação de evento para os botões de quantidade no carrinho.
+        cartBody.addEventListener("click", (e) => {
+          const target = e.target;
+          const id = target.closest(".cart-item")?.dataset.id;
+          if (!id) return;
+
+          if (target.classList.contains("quantity-increase")) {
+            updateItemQuantity(id, 1);
+          } else if (target.classList.contains("quantity-decrease")) {
+            updateItemQuantity(id, -1);
+          }
+        });
+
+        // Evento para filtrar produtos na barra de pesquisa.
+        searchInput.addEventListener("input", (e) => {
+          const searchTerm = e.target.value.toLowerCase();
+          const products = document.querySelectorAll(".product-card");
+
+          products.forEach((product) => {
+            const productNameElement = product.querySelector(".product-name");
+            if (productNameElement) {
+              const productName = productNameElement.textContent.toLowerCase();
+              if (productName.includes(searchTerm)) {
+                product.style.display = "block"; // Mostra o produto
+              } else {
+                product.style.display = "none"; // Esconde o produto
+              }
+            }
+          });
+        });
+
+        // Delegação de evento para os ícones de favorito.
+        productGrid.addEventListener("click", (e) => {
+          const favoriteIcon = e.target.closest(".favorite-icon");
+          if (favoriteIcon) {
+            e.preventDefault(); // Impede a ação padrão do link
+            const card = favoriteIcon.closest(".product-card");
+            toggleFavorite(card);
+          }
+        });
+
+        // ======================= -->
+        // FUNÇÕES DO CARRINHO
+        // ======================= -->
+
+        /**
+         * Alterna a visibilidade do modal do carrinho e do seu overlay.
+         * Adiciona/remove a classe 'active' para controlar a exibição via CSS.
+         */
+        function toggleCartModal() {
+          cartModalOverlay.classList.toggle("active");
+          cartModal.classList.toggle("active");
+        }
+
+        /**
+         * Adiciona um item ao carrinho.
+         * Se o item já existe, incrementa a quantidade.
+         * Se não existe, adiciona o novo item ao array do carrinho.
+         * @param {string} id - O ID único do produto.
+         * @param {string} name - O nome do produto.
+         * @param {number} price - O preço do produto.
+         * @param {string} image - A URL da imagem do produto.
+         */
+        function addItemToCart(id, name, price, image) {
+          const existingItem = cart.find((item) => item.id === id);
+          if (existingItem) {
+            existingItem.quantity++;
+          } else {
+            cart.push({ id, name, price, image, quantity: 1 });
+          }
+          updateCart();
+        }
+
+        /**
+         * Atualiza a quantidade de um item específico no carrinho.
+         * Se a quantidade chegar a zero ou menos, o item é removido do carrinho.
+         * @param {string} id - O ID do item a ser atualizado.
+         * @param {number} change - O valor a ser adicionado ou subtraído da quantidade (ex: 1 ou -1).
+         */
+        function updateItemQuantity(id, change) {
+          const item = cart.find((item) => item.id === id);
+          if (!item) return;
+          item.quantity += change;
+          if (item.quantity <= 0) {
+            cart = cart.filter((cartItem) => cartItem.id !== id);
+          }
+          updateCart();
+        }
+
+        /**
+         * Função central que orquestra todas as atualizações da interface do carrinho.
+         * É chamada sempre que o carrinho é modificado para garantir que a tela
+         * reflita o estado atual dos dados, que também são salvos no localStorage.
+         */
+        function updateCart() {
+          renderCartItems();
+          renderSubtotal();
+          updateCartIconCount();
+          localStorage.setItem("shoppingCart", JSON.stringify(cart));
+        }
+
+        /**
+         * Gera e insere o HTML para cada item do carrinho dentro do modal.
+         * Se o carrinho estiver vazio, exibe uma mensagem apropriada.
+         * Utiliza `map` para transformar cada objeto do array `cart` em uma string HTML.
+         */
+        function renderCartItems() {
+          if (cart.length === 0) {
+            cartBody.innerHTML = "<p>Seu carrinho está vazio.</p>";
+            return;
+          }
+          cartBody.innerHTML = cart
+            .map(
+              (item) => `
+                    <div class="cart-item" data-id="${item.id}">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>R$ ${item.price.toFixed(2)}</p>
+                            <div class="cart-item-actions">
+                                <button class="quantity-decrease">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-increase">+</button>
+                            </div>
+                        </div>
+                    </div>`
+            )
+            .join("");
+        }
+
+        /**
+         * Calcula o valor total de todos os itens no carrinho e o exibe no rodapé do modal.
+         * Utiliza `reduce` para somar o preço multiplicado pela quantidade de cada item.
+         */
+        function renderSubtotal() {
+          const total = cart.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          cartTotal.textContent = `R$ ${total.toFixed(2)}`;
+        }
+
+        /**
+         * Atualiza o número exibido no ícone do carrinho no cabeçalho.
+         * O contador só é visível se houver pelo menos um item no carrinho.
+         */
+        function updateCartIconCount() {
+          const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+          cartItemCount.textContent = totalItems;
+          cartItemCount.style.display = totalItems > 0 ? "block" : "none";
+        }
+
+        // ======================= -->
+        // FUNÇÕES DE FAVORITOS
+        // ======================= -->
+
+        /**
+         * Alterna o estado de um produto (favorito/não favorito).
+         * @param {HTMLElement} cardElement - O elemento do card do produto.
+         */
+        function toggleFavorite(cardElement) {
+          const product = {
+            id: cardElement.dataset.id,
+            name: cardElement.dataset.name,
+            // Pega o preço do elemento HTML, não do data-attribute, para garantir o valor correto
+            price: cardElement
+              .querySelector(".product-price")
+              .textContent.replace("R$ ", "")
+              .replace(",", "."),
+            image: cardElement.querySelector("img").src,
+          };
+
+          let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+          const existingIndex = favorites.findIndex(
+            (item) => item.id === product.id
+          );
+
+          if (existingIndex > -1) {
+            // Se já for favorito, remove da lista
+            favorites.splice(existingIndex, 1);
+            updateFavoriteIcon(cardElement, false);
+          } else {
+            // Se não for favorito, adiciona à lista
+            favorites.push(product);
+            updateFavoriteIcon(cardElement, true);
+          }
+
+          // Salva a lista atualizada no localStorage
+          localStorage.setItem("favorites", JSON.stringify(favorites));
+        }
+
+        /**
+         * Atualiza a aparência do ícone de favorito.
+         * @param {HTMLElement} cardElement - O card do produto.
+         * @param {boolean} isFavorited - Se o produto está favoritado.
+         */
+        function updateFavoriteIcon(cardElement, isFavorited) {
+          const iconElement = cardElement.querySelector(".favorite-icon");
+          const icon = iconElement.querySelector("i");
+          if (isFavorited) {
+            iconElement.classList.add("favorited");
+            icon.classList.remove("far"); // Remove ícone de contorno
+            icon.classList.add("fas"); // Adiciona ícone sólido
+          } else {
+            iconElement.classList.remove("favorited");
+            icon.classList.remove("fas"); // Remove ícone sólido
+            icon.classList.add("far"); // Adiciona ícone de contorno
+          }
+        }
+
+        /**
+         * Verifica todos os produtos na página e atualiza seus ícones de favorito
+         * com base no que está salvo no localStorage.
+         */
+        function initializeFavoriteIcons() {
+          const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+          const products = document.querySelectorAll(".product-card");
+          products.forEach((card) => {
+            const isFavorited = favorites.some(
+              (fav) => fav.id === card.dataset.id
+            );
+            updateFavoriteIcon(card, isFavorited);
+          });
+        }
+
+        // ======================= -->
+        // INICIALIZAÇÃO
+        // ======================= -->
+        // Atualiza o carrinho na inicialização para carregar dados do localStorage.
+        updateCart();
+        initializeFavoriteIcons(); // Inicializa os ícones de favorito
+      });
+    </script>
+  </body>
+</html>
